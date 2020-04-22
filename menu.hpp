@@ -8,17 +8,17 @@
 #include "phonebook.hpp"
 
 class Menu{
-    void listAll();
-    void searchByName();
-    void searchByNumber();
-    void addContact();
-    void removeContact();
+    static void listAll();
+    static void searchByName();
+    static void searchByNumber();
+    static void addContact();
+    static void removeContact();
 
 public:
-    Phonebook phonebook();
+    Phonebook phonebook;
     static void run();
     static void showMenu();
-    void runItem(int);
+    static void runItem(int);
 
     static void loadFromFile();
     static void saveToFile();

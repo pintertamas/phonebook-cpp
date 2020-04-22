@@ -3,3 +3,8 @@
 //
 
 #include "phonebook.hpp"
+
+#include "memtrace.h"
+
+using namespace std;
+

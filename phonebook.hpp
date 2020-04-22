@@ -7,13 +7,16 @@
 
 #include "contact.hpp"
 
+using namespace std;
+
 class Phonebook{
     Contact *contacts;
 public:
-    Contact* searchByName(char*);
-    Contact* searchByNumber(char*);
+    explicit Phonebook(Contact* contacts) : contacts(contacts) {};
+    Contact* searchByName(string);
+    Contact* searchByNumber(string);
     void addContact(Contact);
-    void removeContact(char*);
+    void removeContact(string);
 };
 
 #endif //MY_AWESOME_PHONEBOOK_PHONEBOOK_HPP

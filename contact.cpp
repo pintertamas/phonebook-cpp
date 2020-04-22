@@ -3,3 +3,4 @@
 //
 
 #include "contact.hpp"
+#include "memtrace.h"

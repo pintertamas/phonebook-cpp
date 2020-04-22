@@ -5,24 +5,28 @@
 #ifndef MY_AWESOME_PHONEBOOK_PHONE_HPP
 #define MY_AWESOME_PHONEBOOK_PHONE_HPP
 
+#include <iostream>
+using namespace std;
+
 class Phone {
+protected:
     int number;
 public:
-    virtual char *toString() = 0;
+    virtual string toString() = 0;
 };
 
 class Work : public Phone {
     int workID;
 public:
     int getWorkID() { return workID; };
-    char* toString();
+    string toString();
 };
 
 class Private : public Phone {
     int ID;
 public:
     int getWorkID() { return ID; };
-    char* toString();
+    string toString();
 };
 
 #endif //MY_AWESOME_PHONEBOOK_PHONE_HPP

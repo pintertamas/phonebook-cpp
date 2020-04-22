@@ -7,13 +7,17 @@
 
 #include "phone.hpp"
 
+using namespace std;
+
 class Contact{
     Phone* phones;
-    char* name;
-    char* nickname;
-    char* address;
-    char* email;
+    const string name;
+    const string nickname;
+    const string address;
+    const string email;
 public:
+    Contact(Phone* phones, string& name, string& nickname, string& address, string& email)
+    : phones(phones), name(name), nickname(nickname), address(address), email(email) {};
     Phone* searchByNumber(int);
     void addPhone(Phone*);
     void removePhone(int);
