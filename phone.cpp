@@ -6,7 +6,6 @@
 
 #include "memtrace.h"
 
-#include <cstring>
 using namespace std;
 string Work::toString() {
     // 06204623597, ID: 2
