@@ -10,4 +10,5 @@ add_executable(my_awesome_phonebook
         contact.cpp contact.hpp
         phone.cpp phone.hpp
         gtest_lite.h
-        memtrace.cpp memtrace.h)
+        memtrace.cpp memtrace.h
+        string5.cpp string5.h vector.hpp)

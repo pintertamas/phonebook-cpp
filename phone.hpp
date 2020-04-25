@@ -7,37 +7,38 @@
 
 #include <iostream>
 
-using namespace std;
+#include "contact.hpp"
+#include "string5.h"
 
-class Phone {
-protected:
-    long long number;
+class Work : public Contact {
+    String company;
+    String website;
 public:
-    explicit Phone(long long num) : number(num) {}
+    Work(String &number, String &name, String &email, String &company,
+         String &website) : Contact(number, name, email), company(company), website(website) {}
 
-    virtual string toString() = 0;
+    String getCompany() { return company; }
+
+    String getWebsite() { return website; }
+
+    std::ostream &toString(std::ostream&) override;
 };
 
-class Work : public Phone {
-    int workID;
+class Private : public Contact {
+    String address;
+    const String nickname;
+    int birthday;
 public:
-    Work(long long num, int id) : workID(id), Phone(num) {}
+    Private(String &number, String &name, String &nickname, String &email, String &address,
+            int birthday) : Contact(number, name, email), address(address), nickname(nickname), birthday(birthday) {}
 
-    void setWorkID(int id) { workID = id; }
-    int getWorkID() { return workID; };
+    int getBirthday() const { return birthday; }
 
-    string toString() override;
-};
+    String getNickname() const { return nickname; };
 
-class Private : public Phone {
-    int ID;
-public:
-    Private(long long num, int id) : ID(id), Phone(num) {}
+    String getAddress() const { return address; }
 
-    void setID(int id) { ID = id; }
-    int getID() { return ID; };
-
-    string toString() override;
+    std::ostream &toString(std::ostream&) override;
 };
 
 #endif //MY_AWESOME_PHONEBOOK_PHONE_HPP

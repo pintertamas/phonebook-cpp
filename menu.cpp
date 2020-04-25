@@ -13,33 +13,9 @@ void Menu::run() {
 
     showMenu();
     while(isRunning) {
-        cout << "*Choose one!*\n";
-        cin>>chosenItem;
-       switch(chosenItem) {
-           case 1:
-               listAll();
-               break;
-           case 2:
-               searchByName();
-               break;
-           case 3:
-               searchByNumber();
-               break;
-           case 4:
-               addContact();
-               break;
-           case 5:
-               removeContact();
-               break;
-           case 6:
-               isRunning = false;
-               cout << "*Exiting the program*\n";
-               break;
-           default:
-               cout << "*returning to the menu*\n";
-               showMenu();
-               break;
-       }
+        std::cout << "*Choose one!*\n";
+        std::cin>>chosenItem;
+        runItem(chosenItem, &isRunning);
     }
 }
 
@@ -53,26 +29,50 @@ void Menu::showMenu() {
     std::cout << "6. EXIT" << std::endl;
 }
 
-void Menu::runItem(int index) {
-    cout << index;
+void Menu::runItem(int index, bool *isRunning) {
+    switch(index) {
+        case 1:
+            listAll();
+            break;
+        case 2:
+            searchByName();
+            break;
+        case 3:
+            searchByNumber();
+            break;
+        case 4:
+            addContact();
+            break;
+        case 5:
+            removeContact();
+            break;
+        case 6:
+            *isRunning = false;
+            std::cout << "*Exiting the program*\n";
+            break;
+        default:
+            std::cout << "*returning to the menu*\n";
+            showMenu();
+            break;
+    }
 }
 
 void Menu::listAll() {
-    cout << "listAll\n";
+    std::cout << "listAll\n";
 }
 
 void Menu::searchByName() {
-    cout << "searchByName\n";
+    std::cout << "searchByName\n";
 }
 
 void Menu::searchByNumber() {
-    cout << "searchByNumber\n";
+    std::cout << "searchByNumber\n";
 }
 
 void Menu::addContact() {
-    cout << "addContact\n";
+    std::cout << "addContact\n";
 }
 
 void Menu::removeContact() {
-    cout << "removeContact\n";
+    std::cout << "removeContact\n";
 }

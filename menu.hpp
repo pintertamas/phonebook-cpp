@@ -8,21 +8,17 @@
 #include "phonebook.hpp"
 
 class Menu{
+    Phonebook& phonebook;
     static void listAll();
     static void searchByName();
     static void searchByNumber();
     static void addContact();
     static void removeContact();
-
 public:
-    Phonebook phonebook;
+    explicit Menu(Phonebook& phonebook) :phonebook(phonebook) {}
     static void run();
     static void showMenu();
-    static void runItem(int);
-
-    static void loadFromFile();
-    static void saveToFile();
+    static void runItem(int, bool*);
 };
-
 
 #endif //MY_AWESOME_PHONEBOOK_MENU_HPP

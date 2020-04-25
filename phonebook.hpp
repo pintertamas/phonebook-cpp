@@ -6,17 +6,37 @@
 #define MY_AWESOME_PHONEBOOK_PHONEBOOK_HPP
 
 #include "contact.hpp"
-
-using namespace std;
+#include "phone.hpp"
+#include "string5.h"
+#include "vector.hpp"
 
 class Phonebook{
-    Contact *contacts;
+    Vector<Work*> workContacts;
+    Vector<Private*> privateContacts;
 public:
-    explicit Phonebook(Contact* contacts) : contacts(contacts) {};
-    Contact* searchByName(string);
-    Contact* searchByNumber(string);
-    void addContact(Contact);
-    void removeContact(string);
+    Phonebook() : workContacts(0), privateContacts(0) {};
+    Contact* searchByName(String);
+    Contact* searchByNumber(String);
+    Work* getWorkContacts(size_t index) const {
+        return workContacts[index];
+    }
+    Private* getPrivateContacts(size_t index) const {
+        return privateContacts[index];
+    }
+    void listContacts(std::ostream&);
+    void addContact(Work* const&);
+    void addContact(Private* const&);
+    void removeContact(String);
+    void loadFromFile();
+    void saveToFile();
+    ~Phonebook() {
+        for (size_t i = 0; i < workContacts.getSize(); ++i) {
+            delete workContacts[i];
+        }
+        for (size_t i = 0; i < privateContacts.getSize(); ++i) {
+            delete privateContacts[i];
+        }
+    }
 };
 
 #endif //MY_AWESOME_PHONEBOOK_PHONEBOOK_HPP

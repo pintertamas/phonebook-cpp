@@ -5,22 +5,20 @@
 #ifndef MY_AWESOME_PHONEBOOK_CONTACT_HPP
 #define MY_AWESOME_PHONEBOOK_CONTACT_HPP
 
-#include "phone.hpp"
-
-using namespace std;
+#include "string5.h"
 
 class Contact{
-    Phone* phones;
-    const string name;
-    const string nickname;
-    const string address;
-    const string email;
+protected:
+    const String number;
+    const String name;
+    const String email;
 public:
-    Contact(Phone* phones, string& name, string& nickname, string& address, string& email)
-    : phones(phones), name(name), nickname(nickname), address(address), email(email) {};
-    Phone* searchByNumber(int);
-    void addPhone(Phone*);
-    void removePhone(int);
+    Contact(const String &number, const String &name, const String& email)
+    : number(number), name(name), email(email) {};
+    String getNumber() { return number; };
+    String getName() { return name; };
+    String getEmail() { return email; };
+    virtual std::ostream& toString(std::ostream&) = 0;
 };
 
 #endif //MY_AWESOME_PHONEBOOK_CONTACT_HPP
