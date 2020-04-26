@@ -28,10 +28,12 @@ public:
     Private* getPrivateContacts(size_t index) const {
         return privateContacts[index];
     }
+    void listContactType(const Vector<Work*>&, std::ostream&);
+    void listContactType(const Vector<Private*>&, std::ostream&);
     void listContacts(std::ostream&);
     void addContact(Work* const&);
     void addContact(Private* const&);
-    void removeContact(String);
+    void removeContact();
     void loadFromFile();
     void saveContactsToDB(std::ostream&, Work*);
     void saveContactsToDB(std::ostream&, Private*);

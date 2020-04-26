@@ -10,16 +10,13 @@ int main() {
     Phonebook phonebook;
     phonebook.loadFromFile();
     Menu *menu = new Menu(phonebook);
-    /*String txt = String("a");
-    Work *work = new Work(txt, txt, txt, txt, txt);
-    phonebook.addContact(work);
 
-    Private *priv = new Private(txt, txt, txt, txt, txt, 12345678);
-    phonebook.addContact(priv);
+    /*
+     * String txt = String("234");
+    if(!isdigit(atoi(txt.c_str())))
+        std::cout << atoi(txt.c_str())-1;
+    */
 
-    //Private *priv2 = new Private(txt, txt, txt, txt, txt, 12345678);
-    //phonebook.addContact(priv2);
-    phonebook.listContacts(std::cout);*/
     menu->run(phonebook);
     return 0;
 }

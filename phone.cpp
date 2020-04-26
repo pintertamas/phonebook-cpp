@@ -12,7 +12,7 @@
  */
 
 std::ostream &Work::toString(std::ostream &os) {
-    return os << getCompany() << ", " << getName() << " - number: " << getNumber() << ", website: " << getWebsite()
+    return os << getName() << ", " << getCompany() << " - number: +36" << getNumber() << ", website: " << getWebsite()
               << ", email: " << getEmail() << std::endl;
 }
 
@@ -21,6 +21,6 @@ std::ostream &Private::toString(std::ostream &os) {
     int year = getBirthday() / 10000;
     int month = (getBirthday() - 10000 * year) / 100;
     int day = getBirthday() - 10000 * year - 100 * month;
-    return os << getNickname() << " - number: " << getNumber() << ", address: " << getAddress() << ", birthday: "
+    return os << getNickname() << " - number: +36" << getNumber() << ", address: " << getAddress() << ", birthday: "
               << year << "." << month << "." << day << "." << ", email: " << getEmail() << std::endl;
 }

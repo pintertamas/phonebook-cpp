@@ -84,7 +84,7 @@ public:
      * @brief Átméretezi a vektort egyel nagyobbra
      */
     void increaseSize() {
-        T *newArray = new T[size+1];
+        T *newArray = new T[size + 1];
 
         for (size_t i = 0; i < size; i++)
             newArray[i] = array[i];
@@ -102,7 +102,7 @@ public:
      */
     void push_back(const T &item) {
         increaseSize();
-        array[size-1] = item;
+        array[size - 1] = item;
     }
 
     /**
@@ -121,7 +121,7 @@ public:
      * @param index ezt az indexű tagot törli
      */
     void deleteItem(size_t index) {
-        swap(index, (size));
+        swap(index, (size - 1));
         size--;
     }
 };

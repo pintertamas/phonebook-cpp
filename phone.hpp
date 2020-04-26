@@ -35,7 +35,7 @@ class Private : public Contact {
     int birthday;
 public:
     Private(const String &number = "unknown", const String &name = "unknown", const String &nickname = "unknown", const String &email = "unknown", const String &address = "unknown",
-            int birthday = 10000000) : Contact(number, name, email), address(address), nickname(nickname), birthday(birthday) {}
+            int birthday = 18900101) : Contact(number, name, email), address(address), nickname(nickname), birthday(birthday) {}
 
     int getBirthday() const { return birthday; }
 

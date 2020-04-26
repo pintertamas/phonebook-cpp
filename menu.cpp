@@ -17,11 +17,10 @@ void Menu::run(Phonebook &phonebook) {
     char chosenItem = 0;
 
     while (isRunning) {
-        system("CLS");
         showMenu();
         std::cout << "*Choose one!*\n";
         std::cin >> chosenItem;
-        if(toascii(chosenItem) > 48 && toascii(chosenItem) < 55)
+        if (toascii(chosenItem) > 48 && toascii(chosenItem) < 55)
             runItem(toascii(chosenItem), &isRunning, phonebook);
         else
             std::cout << "*Choose again please*" << std::endl;
@@ -82,60 +81,89 @@ void Menu::searchByNumber(Phonebook &phonebook) {
 
 void Menu::addContact(Phonebook &phonebook) {
     std::cout << "*Choose from the following options: *" << std::endl;
-    std::cout << "1. Add work contact"  << std::endl;
+    std::cout << "1. Add work contact" << std::endl;
     std::cout << "2. Add private contact" << std::endl;
     std::cout << "3. EXIT" << std::endl;
-    char choice; // majd ide kell rakni hogy =0, csak idegesít hogy szürke lesz tőle az editor
-    while (toascii(choice) < 49 || choice > 51) {
+    char choice = 0;
+    while (toascii(choice) < 49 || toascii(choice) > 51) {
         std::cin >> choice;
-        if (toascii(choice) < 49 || choice > 51)
+        if (toascii(choice) < 49 || toascii(choice) > 51)
             std::cout << "Choose again!" << std::endl;
-        if (choice == 51)
+        if (toascii(choice) == 51)
             break;
-    }
-    if (choice == 49) {
-        std::cout << "*Creating work contact...*" << std::endl;
-        String number, name, company, email, website;
-        std::cout << "number: ";
-        std::cin >> number;
-        std::cout << "\nname: ";
-        std::cin >> name;
-        std::cout << "\ncompany: ";
-        std::cin >> company;
-        std::cout << "\nemail: ";
-        std::cin >> email;
-        std::cout << "\nwebsite: ";
-        std::cin >> website;
-        std::cout << std::endl;
+        if (choice == 49) {
+            std::cout << "*Creating work contact...*" << std::endl;
+            String number, name, company, email, website;
+            std::cout << "number: +36";
+            std::cin >> number;
 
-        Work *newWorkContact = new Work(number, name, email, company, website);
-        phonebook.addContact(newWorkContact);
-    }
+            while (atoi(number.c_str()) < 200000000 || atoi(number.c_str()) > 709999999) {
+                std::cout << "Wrong format, try again!" << std::endl;
+                std::cout << "The phone number must contain only numbers, and the length should be 9 digits long)"
+                          << std::endl;
+                std::cout << "number: +36";
+                std::cin >> number;
+            }
 
-    if(choice == 50) {
-        std::cout << "*Creating private contact...*" << std::endl;
-        String number, name, nickname, email, address;
-        int birthday;
-        std::cout << "number: ";
-        std::cin >> number;
-        std::cout << "\nname: ";
-        std::cin >> name;
-        std::cout << "\nnickname: ";
-        std::cin >> nickname;
-        std::cout << "\nbirthday: ";
-        std::cin >> birthday;
-        std::cout << "\nemail: ";
-        std::cin >> email;
-        std::cout << "\naddress: ";
-        std::cin >> address;
-        std::cout << std::endl;
+            std::cout << "\nname: ";
+            std::cin >> name;
+            std::cout << "\ncompany: ";
+            std::cin >> company;
+            std::cout << "\nemail: ";
+            std::cin >> email;
+            std::cout << "\nwebsite: ";
+            std::cin >> website;
+            std::cout << std::endl;
 
-        Private *newPrivateContact = new Private(number, name, nickname, email, address, birthday);
-        newPrivateContact->toString(std::cout);
-        phonebook.addContact(newPrivateContact);
+            Work *newWorkContact = new Work(number, name, email, company, website);
+            newWorkContact->toString(std::cout);
+            phonebook.addContact(newWorkContact);
+            phonebook.saveToFile();
+        }
+
+        if (choice == 50) {
+            std::cout << "*Creating private contact...*" << std::endl;
+            String number, name, nickname, birthday, email, address;
+
+            std::cout << "number: +36";
+            std::cin >> number;
+
+            while (atoi(number.c_str()) < 200000000 || atoi(number.c_str()) > 709999999) {
+                std::cout << "Wrong format, try again!" << std::endl;
+                std::cout << "The phone number must contain only numbers, and the length should be 9 digits long)"
+                          << std::endl;
+                std::cout << "number: +36";
+                std::cin >> number;
+            }
+
+            std::cout << "\nname: ";
+            std::cin >> name;
+            std::cout << "\nnickname: ";
+            std::cin >> nickname;
+            std::cout << "\nbirthday: ";
+            std::cin >> birthday;
+
+            while (atoi(birthday.c_str()) < 18900101 || atoi(birthday.c_str()) > 21000101) {
+                std::cout << "Wrong format, try again!" << std::endl;
+                std::cout << "The birthday must be between 1890.01.01 and 2100.01.01" << std::endl;
+                std::cin >> birthday;
+            }
+
+            std::cout << "\nemail: ";
+            std::cin >> email;
+            std::cout << "\naddress: ";
+            std::cin >> address;
+            std::cout << std::endl;
+
+            Private *newPrivateContact = new Private(number, name, nickname, email, address,
+                                                     atoi(birthday.c_str()));
+            newPrivateContact->toString(std::cout);
+            phonebook.addContact(newPrivateContact);
+            phonebook.saveToFile();
+        }
     }
 }
 
 void Menu::removeContact(Phonebook &phonebook) {
-    std::cout << "*DEBUG* removeContact\n";
+    phonebook.removeContact();
 }
