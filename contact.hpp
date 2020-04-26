@@ -9,9 +9,9 @@
 
 class Contact{
 protected:
-    const String number;
-    const String name;
-    const String email;
+    String number;
+    String name;
+    String email;
 public:
     Contact(const String &number, const String &name, const String& email)
     : number(number), name(name), email(email) {};

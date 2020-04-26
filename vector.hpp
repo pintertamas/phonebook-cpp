@@ -40,6 +40,7 @@ public:
             array[i] = vector.array[i];
         }
     }
+
     /**
      * @brief Ertekado operator
      * @param vector ezt az értéket adjuk át
@@ -56,22 +57,29 @@ public:
         }
         return *this;
     }
+
     /**
      * @brief Indexelő operátor
      * @param index ennél az indexnél lévő adatot adjuk vissza
      * @return array[index]
      */
-    T& operator[](size_t index) const { return array[index]; }
+    T &operator[](size_t index) const {
+        if (index > size)
+            return array[size];
+        return array[index];
+    }
+
     /**
      * @brief méret getter
      * @return méret
      */
     size_t getSize() const { return size; }
+
     /**
      * @brief Átméretezi a vektort egyel nagyobbra
      */
-    void resize() {
-        T *newArray = new T[size++];
+    void increaseSize() {
+        T *newArray = new T[size+1];
 
         for (size_t i = 0; i < size; i++)
             newArray[i] = array[i];
@@ -80,15 +88,18 @@ public:
 
         delete[] array;
         array = newArray;
+        size++;
     }
+
     /**
      * @brief hozzárak egy elemet a tárolóhoz
      * @param t A kapott elem referenciája.
      */
-    void push_back(const T& item) {
-        resize();
-        array[size] = item;
+    void push_back(const T &item) {
+        increaseSize();
+        array[size-1] = item;
     }
+
     /**
      * @brief megcserél két tárolt elemet az indexeik alapján
      * @param index1 1. elem
@@ -99,6 +110,7 @@ public:
         array[index1] = array[index2];
         array[index2] = tmp;
     }
+
     /**
      * @brief kitöröl egy elemet a tárolóbol
      * @param index ezt az indexű tagot törli

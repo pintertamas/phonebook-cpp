@@ -14,8 +14,8 @@ class Work : public Contact {
     String company;
     String website;
 public:
-    Work(String &number, String &name, String &email, String &company,
-         String &website) : Contact(number, name, email), company(company), website(website) {}
+    Work(const String &number = "unknown", const String &name = "unknown", const String &email = "unknown", const String &company = "unknown",
+         const String &website = "unknown") : Contact(number, name, email), company(company), website(website) {}
 
     String getCompany() { return company; }
 
@@ -26,11 +26,11 @@ public:
 
 class Private : public Contact {
     String address;
-    const String nickname;
+    String nickname;
     int birthday;
 public:
-    Private(String &number, String &name, String &nickname, String &email, String &address,
-            int birthday) : Contact(number, name, email), address(address), nickname(nickname), birthday(birthday) {}
+    Private(const String &number = "unknown", const String &name = "unknown", const String &nickname = "unknown", const String &email = "unknown", const String &address = "unknown",
+            int birthday = 0) : Contact(number, name, email), address(address), nickname(nickname), birthday(birthday) {}
 
     int getBirthday() const { return birthday; }
 

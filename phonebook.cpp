@@ -8,17 +8,21 @@
 
 void Phonebook::listContacts(std::ostream &os) {
     os << "*Work Contacts*" << std::endl;
-    for (size_t i = 0; i < workContacts.getSize(); ++i) {
-        getWorkContacts(i)->toString(os);
-        os << workContacts[i] << std::endl;
-        //workContacts[i]->toString(os);
+    if (workContacts.getSize() != 0) {
+        for (size_t i = 0; i < workContacts.getSize(); ++i) {
+            getWorkContacts(i)->toString(os);
+        }
+    } else {
+        os << "*There are no work contacts*" << std::endl;
     }
     os << std::endl;
     os << "*Private Contacts*" << std::endl;
-    for (size_t i = 0; i < privateContacts.getSize(); ++i) {
-        getPrivateContacts(i)->toString(os);
-        os << privateContacts[i] << std::endl;
-        //privateContacts[i]->toString(os);
+    if (privateContacts.getSize() != 0) {
+        for (size_t i = 0; i < privateContacts.getSize(); ++i) {
+            getPrivateContacts(i)->toString(os);
+        }
+    } else {
+        os << "*There are no private contacts*" << std::endl;
     }
 }
 
