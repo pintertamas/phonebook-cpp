@@ -5,6 +5,11 @@
 #ifndef MY_AWESOME_PHONEBOOK_VECTOR_HPP
 #define MY_AWESOME_PHONEBOOK_VECTOR_HPP
 
+/**
+ * @file vector.hpp
+ * @brief Vector class
+ */
+
 #include <cstdlib>
 
 template<typename T>
@@ -44,7 +49,7 @@ public:
     /**
      * @brief Ertekado operator
      * @param vector ezt az értéket adjuk át
-     * @return
+     * @return *this
      */
     Vector &operator=(const Vector &vector) {
         if (this != &vector) {

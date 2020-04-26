@@ -7,6 +7,11 @@
 
 #include "phonebook.hpp"
 
+/**
+ * @file menu.hpp
+ * @brief Menu class
+ */
+
 class Menu{
     const Phonebook& phonebook;
     static void listAll(Phonebook&);

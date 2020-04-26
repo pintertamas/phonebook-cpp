@@ -6,8 +6,14 @@
 
 #include "memtrace.h"
 
+/**
+ * @file phone.cpp
+ * @brief Phone class fügvényei
+ */
+
 std::ostream &Work::toString(std::ostream &os) {
-    return os << getCompany() << " - number: " <<getNumber() << ", website: " << getWebsite();
+    return os << getCompany() << ", " << getName() << " - number: " << getNumber() << ", website: " << getWebsite()
+              << ", email: " << getEmail() << std::endl;
 }
 
 std::ostream &Private::toString(std::ostream &os) {
@@ -15,5 +21,6 @@ std::ostream &Private::toString(std::ostream &os) {
     int year = getBirthday() / 10000;
     int month = (getBirthday() - 10000 * year) / 100;
     int day = getBirthday() - 10000 * year - 100 * month;
-    return os << getNickname() << " - number: " << getNumber() << ", address: " << getAddress() << ", birthday: " << year << "." << month << "." << day << "." << std::endl;
+    return os << getNickname() << " - number: " << getNumber() << ", address: " << getAddress() << ", birthday: "
+              << year << "." << month << "." << day << "." << ", email: " << getEmail() << std::endl;
 }

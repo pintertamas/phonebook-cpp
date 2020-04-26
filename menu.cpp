@@ -7,11 +7,17 @@
 #include "menu.hpp"
 #include "memtrace.h"
 
+/**
+ * @file menu.cpp
+ * @brief Menu class fügvényei
+ */
+
 void Menu::run(Phonebook &phonebook) {
     bool isRunning = true;
     char chosenItem = 0;
 
     while (isRunning) {
+        system("CLS");
         showMenu();
         std::cout << "*Choose one!*\n";
         std::cin >> chosenItem;
@@ -53,6 +59,7 @@ void Menu::runItem(int index, bool *isRunning, Phonebook &phonebook) {
         case 54:
             *isRunning = false;
             std::cout << "*Exiting the program*\n";
+            phonebook.saveToFile();
             break;
         default:
             std::cout << "*returning to the menu*\n";
@@ -74,9 +81,8 @@ void Menu::searchByNumber(Phonebook &phonebook) {
 }
 
 void Menu::addContact(Phonebook &phonebook) {
-    std::cout << "*DEBUG* addContact\n";
     std::cout << "*Choose from the following options: *" << std::endl;
-    std::cout << "1. Add work contact" << std::endl;
+    std::cout << "1. Add work contact"  << std::endl;
     std::cout << "2. Add private contact" << std::endl;
     std::cout << "3. EXIT" << std::endl;
     char choice; // majd ide kell rakni hogy =0, csak idegesít hogy szürke lesz tőle az editor

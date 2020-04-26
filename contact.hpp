@@ -7,6 +7,11 @@
 
 #include "string5.h"
 
+/**
+ * @file contact.hpp
+ * @brief Contact class
+ */
+
 class Contact{
 protected:
     String number;

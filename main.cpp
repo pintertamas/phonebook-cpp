@@ -2,8 +2,13 @@
 
 #include "menu.hpp"
 
+/**
+ * @file mail.cpp
+ */
+
 int main() {
     Phonebook phonebook;
+    phonebook.loadFromFile();
     Menu *menu = new Menu(phonebook);
     /*String txt = String("a");
     Work *work = new Work(txt, txt, txt, txt, txt);

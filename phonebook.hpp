@@ -10,6 +10,11 @@
 #include "string5.h"
 #include "vector.hpp"
 
+/**
+ * @file phonebook.hpp
+ * @brief Phonebook class
+ */
+
 class Phonebook{
     Vector<Work*> workContacts;
     Vector<Private*> privateContacts;
@@ -28,6 +33,8 @@ public:
     void addContact(Private* const&);
     void removeContact(String);
     void loadFromFile();
+    void saveContactsToDB(std::ostream&, Work*);
+    void saveContactsToDB(std::ostream&, Private*);
     void saveToFile();
     ~Phonebook() {
         for (size_t i = 0; i < workContacts.getSize(); ++i) {

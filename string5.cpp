@@ -106,7 +106,7 @@ std::istream& operator>>(std::istream& is, String& s0) {
 	is.setf(ios_base::skipws);			// az elején eldobjuk a ws-t
     while (is >> ch) {
 	    is.unsetf(ios_base::skipws);	// utána pedig már nem
-        if (isspace(ch)) {
+        if (ch == '\n'/*isspace(ch)*/) {
             is.putback(ch);             // na ezt nem kérjük
             break;
         } else {
