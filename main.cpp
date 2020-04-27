@@ -58,21 +58,25 @@ void test_2() {
     Phonebook pb;
     Private *priv = new Private(testString, testString, testString, testString, testString, 20000101);
     pb.addContact(priv);
-    Vector<Contact *> testResultName, testResultNumber;
-    testResultName = pb.searchByName(testString);
-    testResultNumber = pb.searchByNumber(testString);
+    Vector<Contact *> testResult;
 
+    testResult = pb.searchByName(testString);
     TEST(Phonebook teszt, searchByName)
         {
-            EXPECT_EQ(*priv->getName().c_str(), *testResultName[0]->getName().c_str());
+            EXPECT_EQ(*priv->getName().c_str(), *testResult[0]->getName().c_str());
         }
     END
 
+    testResult = pb.searchByNumber(testString);
     TEST(Phonebook teszt, searchByNumber)
         {
-            EXPECT_EQ(*priv->getNumber().c_str(), *testResultNumber[0]->getNumber().c_str());
+            EXPECT_EQ(*priv->getNumber().c_str(), *testResult[0]->getNumber().c_str());
         }
     END
+
+
+
+
 
 }
 

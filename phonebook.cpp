@@ -143,7 +143,7 @@ void Phonebook::removeContact() {
             std::cout << "Choose an item with its index that you want to remove!" << std::endl;
             String indexChoice;
             std::cin >> indexChoice;
-            if (atoi(indexChoice.c_str()) <= workContacts.getSize() && atoi(indexChoice.c_str()) != 0) {
+            if (atoi(indexChoice.c_str()) <= (signed int)workContacts.getSize() && atoi(indexChoice.c_str()) != 0) {
                 std::cout << atoi(indexChoice.c_str()) << std::endl;
                 std::cout << getWorkContacts(atoi(indexChoice.c_str())) << std::endl;
                 std::cout << "This contact was successfully deleted:\n";
@@ -157,7 +157,7 @@ void Phonebook::removeContact() {
             std::cout << "Choose an item with its index that you want to remove!" << std::endl;
             String indexChoice;
             std::cin >> indexChoice;
-            if (atoi(indexChoice.c_str()) <= privateContacts.getSize() && atoi(indexChoice.c_str()) != 0) {
+            if (atoi(indexChoice.c_str()) <= (signed int)privateContacts.getSize() && atoi(indexChoice.c_str()) != 0) {
                 std::cout << atoi(indexChoice.c_str()) << std::endl;
                 std::cout << "This contact was successfully deleted:\n";
                 getPrivateContacts(atoi(indexChoice.c_str()) - 1)->toString(std::cout) << std::endl;
