@@ -7,7 +7,7 @@ add_executable(my_awesome_phonebook
         main.cpp
         menu.cpp menu.hpp
         phonebook.cpp phonebook.hpp
-        contact.cpp contact.hpp
+        contact.hpp
         phone.cpp phone.hpp
         gtest_lite.h
         memtrace.cpp memtrace.h

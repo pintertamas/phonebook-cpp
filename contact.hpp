@@ -12,18 +12,24 @@
  * @brief Contact class
  */
 
-class Contact{
+class Contact {
 protected:
     String number;
     String name;
     String email;
 public:
-    Contact(const String &number, const String &name, const String& email)
-    : number(number), name(name), email(email) {};
+    Contact(const String &number, const String &name, const String &email)
+            : number(number), name(name), email(email) {};
+
     String getNumber() const { return number; };
+
     String getName() const { return name; };
+
     String getEmail() const { return email; };
-    virtual std::ostream& toString(std::ostream&) = 0;
+
+    virtual std::ostream &toString(std::ostream &) = 0;
+
+    virtual ~Contact() = default;
 };
 
 #endif //MY_AWESOME_PHONEBOOK_CONTACT_HPP
