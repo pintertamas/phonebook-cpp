@@ -3,9 +3,6 @@
 #include "memtrace.h"
 
 #include "menu.hpp"
-#include "phonebook.hpp"
-#include "contact.hpp"
-#include "phone.hpp"
 #include "test.hpp"
 
 /**
