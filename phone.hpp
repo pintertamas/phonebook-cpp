@@ -19,12 +19,12 @@ class Work : public Contact {
     String company;
     String website;
 public:
-    Work(const String &number = "unknown", const String &name = "unknown", const String &email = "unknown", const String &company = "unknown",
+    explicit Work(const String &number = "unknown", const String &name = "unknown", const String &email = "unknown", const String &company = "unknown",
          const String &website = "unknown") : Contact(number, name, email), company(company), website(website) {}
 
-    String getCompany() { return company; }
+    String getCompany() const { return company; }
 
-    String getWebsite() { return website; }
+    String getWebsite() const { return website; }
 
     std::ostream &toString(std::ostream&) override;
 };
@@ -34,7 +34,7 @@ class Private : public Contact {
     String nickname;
     int birthday;
 public:
-    Private(const String &number = "unknown", const String &name = "unknown", const String &nickname = "unknown", const String &email = "unknown", const String &address = "unknown",
+    explicit Private(const String &number = "unknown", const String &name = "unknown", const String &nickname = "unknown", const String &email = "unknown", const String &address = "unknown",
             int birthday = 18900101) : Contact(number, name, email), address(address), nickname(nickname), birthday(birthday) {}
 
     int getBirthday() const { return birthday; }

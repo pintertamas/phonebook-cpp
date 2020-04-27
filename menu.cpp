@@ -12,7 +12,7 @@
  * @brief Menu class fügvényei
  */
 
-void Menu::run(Phonebook &phonebook) {
+void Menu::run() {
     bool isRunning = true;
     char chosenItem = 0;
 
@@ -21,7 +21,7 @@ void Menu::run(Phonebook &phonebook) {
         std::cout << "*Choose one!*\n";
         std::cin >> chosenItem;
         if (toascii(chosenItem) > 48 && toascii(chosenItem) < 55)
-            runItem(toascii(chosenItem), &isRunning, phonebook);
+            runItem(toascii(chosenItem), &isRunning);
         else
             std::cout << "*Choose again please*" << std::endl;
     }
@@ -38,22 +38,22 @@ void Menu::showMenu() {
     std::cout << "6. EXIT" << std::endl;
 }
 
-void Menu::runItem(int index, bool *isRunning, Phonebook &phonebook) {
+void Menu::runItem(int index, bool *isRunning) {
     switch (index) {
         case 49:
-            listAll(phonebook);
+            listAll();
             break;
         case 50:
-            searchByName(phonebook);
+            searchByName();
             break;
         case 51:
-            searchByNumber(phonebook);
+            searchByNumber();
             break;
         case 52:
-            addContact(phonebook);
+            addContact();
             break;
         case 53:
-            removeContact(phonebook);
+            removeContact();
             break;
         case 54:
             *isRunning = false;
@@ -67,19 +67,35 @@ void Menu::runItem(int index, bool *isRunning, Phonebook &phonebook) {
     }
 }
 
-void Menu::listAll(Phonebook &phonebook) {
+void Menu::listAll() {
     phonebook.listContacts(std::cout);
 }
 
-void Menu::searchByName(Phonebook &phonebook) {
-    std::cout << "*DEBUG* searchByName\n";
+void Menu::searchByName() {
+    std::cout << "*Search for a contact with a name*" << std::endl;
+    std::cout << "Type a name!" << std::endl;
+    String name;
+    std::cin >> name;
+    Vector<Contact *> matchedContacts = phonebook.searchByName(name);
+    std::cout << "*Results:*" << std::endl;
+    if (matchedContacts.getSize() != 0)
+        phonebook.listContactType(matchedContacts, std::cout);
+    else std::cout << "*No matching contact was found*" << std::endl;
 }
 
-void Menu::searchByNumber(Phonebook &phonebook) {
-    std::cout << "*DEBUG* searchByNumber\n";
+void Menu::searchByNumber() {
+    std::cout << "*Search for a contact with a number*" << std::endl;
+    std::cout << "Type a number!" << std::endl;
+    String number;
+    std::cin >> number;
+    Vector<Contact *> matchedContacts = phonebook.searchByNumber(number);
+    std::cout << "*Results:*" << std::endl;
+    if (matchedContacts.getSize() != 0)
+        phonebook.listContactType(matchedContacts, std::cout);
+    else std::cout << "*No matching contact was found*" << std::endl;
 }
 
-void Menu::addContact(Phonebook &phonebook) {
+void Menu::addContact() {
     std::cout << "*Choose from the following options: *" << std::endl;
     std::cout << "1. Add work contact" << std::endl;
     std::cout << "2. Add private contact" << std::endl;
@@ -140,7 +156,7 @@ void Menu::addContact(Phonebook &phonebook) {
             std::cin >> name;
             std::cout << "\nnickname: ";
             std::cin >> nickname;
-            std::cout << "\nbirthday: ";
+            std::cout << "\nFormat:YYYYMMDD\nbirthday: ";
             std::cin >> birthday;
 
             while (atoi(birthday.c_str()) < 18900101 || atoi(birthday.c_str()) > 21000101) {
@@ -164,6 +180,6 @@ void Menu::addContact(Phonebook &phonebook) {
     }
 }
 
-void Menu::removeContact(Phonebook &phonebook) {
+void Menu::removeContact() {
     phonebook.removeContact();
 }

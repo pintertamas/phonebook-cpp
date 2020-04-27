@@ -15,29 +15,50 @@
  * @brief Phonebook class
  */
 
-class Phonebook{
-    Vector<Work*> workContacts;
-    Vector<Private*> privateContacts;
+class Phonebook {
+    Vector<Work *> workContacts;
+    Vector<Private *> privateContacts;
 public:
     Phonebook() : workContacts(0), privateContacts(0) {};
-    Contact* searchByName(String);
-    Contact* searchByNumber(String);
-    Work* getWorkContacts(size_t index) const {
+
+    Vector<Contact *> searchByName(String &name);
+
+    Vector<Contact *> searchByNumber(String &number);
+
+    static Vector<Contact *> convertToContact(Vector<Work *> const &workContacts);
+
+    static Vector<Contact *> convertToContact(Vector<Private *> const &privateContacts);
+
+    static Vector<Contact *>
+    searchContactsFor(const Vector<Contact *> &contacts, bool (*searchCommand)(const Contact *, const String &),
+                      const String &pattern);
+
+    Work *getWorkContacts(size_t index) const {
         return workContacts[index];
     }
-    Private* getPrivateContacts(size_t index) const {
+
+    Private *getPrivateContacts(size_t index) const {
         return privateContacts[index];
     }
-    void listContactType(const Vector<Work*>&, std::ostream&);
-    void listContactType(const Vector<Private*>&, std::ostream&);
-    void listContacts(std::ostream&);
-    void addContact(Work* const&);
-    void addContact(Private* const&);
+
+    static void listContactType(const Vector<Contact *> &contacts, std::ostream &);
+
+    void listContacts(std::ostream &);
+
+    void addContact(Work *const &);
+
+    void addContact(Private *const &);
+
     void removeContact();
+
     void loadFromFile();
-    void saveContactsToDB(std::ostream&, Work*);
-    void saveContactsToDB(std::ostream&, Private*);
+
+    static void saveContactsToDB(std::ostream &, Work *);
+
+    static void saveContactsToDB(std::ostream &, Private *);
+
     void saveToFile();
+
     ~Phonebook() {
         for (size_t i = 0; i < workContacts.getSize(); ++i) {
             delete workContacts[i];

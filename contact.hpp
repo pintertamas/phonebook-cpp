@@ -20,9 +20,9 @@ protected:
 public:
     Contact(const String &number, const String &name, const String& email)
     : number(number), name(name), email(email) {};
-    String getNumber() { return number; };
-    String getName() { return name; };
-    String getEmail() { return email; };
+    String getNumber() const { return number; };
+    String getName() const { return name; };
+    String getEmail() const { return email; };
     virtual std::ostream& toString(std::ostream&) = 0;
 };
 

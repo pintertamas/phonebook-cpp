@@ -13,17 +13,17 @@
  */
 
 class Menu{
-    const Phonebook& phonebook;
-    static void listAll(Phonebook&);
-    void searchByName(Phonebook&);
-    void searchByNumber(Phonebook&);
-    void addContact(Phonebook&);
-    void removeContact(Phonebook&);
+    Phonebook& phonebook;
+    void listAll();
+    void searchByName();
+    void searchByNumber();
+    void addContact();
+    void removeContact();
 public:
     Menu(Phonebook& phonebook) :phonebook(phonebook) {}
-    void run(Phonebook&);
+    void run();
     static void showMenu();
-    void runItem(int, bool*, Phonebook&);
+    void runItem(int, bool*);
 };
 
 #endif //MY_AWESOME_PHONEBOOK_MENU_HPP
