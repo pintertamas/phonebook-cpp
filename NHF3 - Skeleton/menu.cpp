@@ -20,7 +20,7 @@ void Menu::run() {
         showMenu();
         std::cout << "*Choose one!*\n";
         std::cin >> chosenItem;
-        if (toascii(chosenItem) > '0' && toascii(chosenItem) < '7')
+        if (toascii(chosenItem) > 48 && toascii(chosenItem) < 55)
             runItem(toascii(chosenItem), &isRunning);
         else
             std::cout << "*Choose again please*" << std::endl;

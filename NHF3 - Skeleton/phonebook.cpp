@@ -51,6 +51,7 @@ void Phonebook::addContact(Private *const &newContact) {
 bool Phonebook::isFileEmpty(const char *filename) {
     std::ifstream file(filename, std::ios::in);
 
+
     // Read a character, test for end-of-file
     bool empty = (file.get(), file.eof());
     return empty;
