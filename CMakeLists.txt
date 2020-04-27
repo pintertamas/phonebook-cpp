@@ -12,4 +12,4 @@ add_executable(my_awesome_phonebook
         phone.cpp phone.hpp
         gtest_lite.h
         memtrace.cpp memtrace.h
-        string5.cpp string5.h vector.hpp)
+        string5.cpp string5.h vector.hpp test.cpp test.hpp)

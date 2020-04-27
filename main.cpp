@@ -6,6 +6,7 @@
 #include "phonebook.hpp"
 #include "contact.hpp"
 #include "phone.hpp"
+#include "test.hpp"
 
 /**
  * @file mail.cpp
@@ -17,68 +18,6 @@
  * Keresni is lehet név vagy telefonszám szerint.
  * Pintér Tamás - JY4D5L
  */
-/**
- * @brief test_1 Teszt a konstruktorokhoz
- * Teszteli, hogy a konstruktorok rendes adatokkal hoznak-e a létre kontaktokat
- */
-void test_1() {
-    String testString = String("test");
-
-    TEST(Konstruktor teszt, Work)
-        {
-            Work work(testString, testString, testString, testString, testString);
-
-            EXPECT_EQ(*testString.c_str(), *work.getNumber().c_str());
-            EXPECT_EQ(*testString.c_str(), *work.getName().c_str());
-            EXPECT_EQ(*testString.c_str(), *work.getEmail().c_str());
-            EXPECT_EQ(*testString.c_str(), *work.getCompany().c_str());
-            EXPECT_EQ(*testString.c_str(), *work.getWebsite().c_str());
-        }
-    END
-    TEST(Konstruktor teszt, Private)
-        {
-            Private priv(testString, testString, testString, testString, testString, 20000101);
-
-            EXPECT_EQ(*testString.c_str(), *priv.getNumber().c_str());
-            EXPECT_EQ(*testString.c_str(), *priv.getName().c_str());
-            EXPECT_EQ(*testString.c_str(), *priv.getEmail().c_str());
-            EXPECT_EQ(*testString.c_str(), *priv.getNickname().c_str());
-            EXPECT_EQ(20000101, priv.getBirthday());
-        }
-    END
-}
-
-/**
- * @brief test_2 Teszteset a függvényekhez
- * Leteszteli, hogy a függvények jó adatokkal térnek-e vissza
- */
-void test_2() {
-    String testString = String("test");
-
-    Phonebook pb;
-    Private *priv = new Private(testString, testString, testString, testString, testString, 20000101);
-    pb.addContact(priv);
-    Vector<Contact *> testResult;
-
-    testResult = pb.searchByName(testString);
-    TEST(Phonebook teszt, searchByName)
-        {
-            EXPECT_EQ(*priv->getName().c_str(), *testResult[0]->getName().c_str());
-        }
-    END
-
-    testResult = pb.searchByNumber(testString);
-    TEST(Phonebook teszt, searchByNumber)
-        {
-            EXPECT_EQ(*priv->getNumber().c_str(), *testResult[0]->getNumber().c_str());
-        }
-    END
-
-
-
-
-
-}
 
 int main() {
 #ifndef CPORTA
