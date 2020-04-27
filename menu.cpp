@@ -40,22 +40,22 @@ void Menu::showMenu() {
 
 void Menu::runItem(int index, bool *isRunning) {
     switch (index) {
-        case 49:
+        case '1':
             listAll();
             break;
-        case 50:
+        case '2':
             searchByName();
             break;
-        case 51:
+        case '3':
             searchByNumber();
             break;
-        case 52:
+        case '4':
             addContact();
             break;
-        case 53:
+        case '5':
             removeContact();
             break;
-        case 54:
+        case '6':
             *isRunning = false;
             std::cout << "*Exiting the program*\n";
             phonebook.saveToFile();
@@ -101,13 +101,13 @@ void Menu::addContact() {
     std::cout << "2. Add private contact" << std::endl;
     std::cout << "3. EXIT" << std::endl;
     char choice = 0;
-    while (toascii(choice) < 49 || toascii(choice) > 51) {
+    while (toascii(choice) < '1' || toascii(choice) > '3') {
         std::cin >> choice;
-        if (toascii(choice) < 49 || toascii(choice) > 51)
+        if (toascii(choice) < '1' || toascii(choice) > '3')
             std::cout << "Choose again!" << std::endl;
-        if (toascii(choice) == 51)
+        if (toascii(choice) == '3')
             break;
-        if (choice == 49) {
+        if (choice == '1') {
             std::cout << "*Creating work contact...*" << std::endl;
             String number, name, company, email, website;
             std::cout << "number: +36";
@@ -137,7 +137,7 @@ void Menu::addContact() {
             phonebook.saveToFile();
         }
 
-        if (choice == 50) {
+        if (choice == '2') {
             std::cout << "*Creating private contact...*" << std::endl;
             String number, name, nickname, birthday, email, address;
 
