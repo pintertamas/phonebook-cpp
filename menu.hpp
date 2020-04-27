@@ -12,6 +12,9 @@
  * @brief Menu class
  */
 
+/**
+ * @brief Menu class létrehozása
+ */
 class Menu{
     Phonebook& phonebook;
     void listAll();
@@ -20,10 +23,26 @@ class Menu{
     void addContact();
     void removeContact();
 public:
-    Menu(Phonebook& phonebook) :phonebook(phonebook) {}
+    /**
+     * @brief Menu CTOR
+     * Létrehoz egy Menüt egy telefonkönyvvel
+     * @param phonebook ezt kapja meg telefonkönyvnek
+     */
+    explicit Menu(Phonebook& phonebook) :phonebook(phonebook) {}
+    /**
+     * @brief Futtatja a menüt
+     */
     void run();
+    /**
+     * @brief Kiírja a menüt a felhasználónak
+     */
     static void showMenu();
-    void runItem(int, bool*);
+    /**
+     * @brief Futtat egy menüpontot
+     * @param index ezzel a sorszámmal
+     * @param isRunning megkapja, hogy a programnak kell-e még futnia
+     */
+    void runItem(int index, bool* isRunning);
 };
 
 #endif //MY_AWESOME_PHONEBOOK_MENU_HPP
