@@ -79,7 +79,7 @@ void Menu::searchByName() {
     Vector<Contact *> matchedContacts = phonebook.searchByName(name);
     std::cout << "*Results:*" << std::endl;
     if (matchedContacts.getSize() != 0)
-        phonebook.listContactType(matchedContacts, std::cout);
+        Phonebook::listContactType(matchedContacts, std::cout);
     else std::cout << "*No matching contact was found*" << std::endl;
 }
 
@@ -91,7 +91,7 @@ void Menu::searchByNumber() {
     Vector<Contact *> matchedContacts = phonebook.searchByNumber(number);
     std::cout << "*Results:*" << std::endl;
     if (matchedContacts.getSize() != 0)
-        phonebook.listContactType(matchedContacts, std::cout);
+        Phonebook::listContactType(matchedContacts, std::cout);
     else std::cout << "*No matching contact was found*" << std::endl;
 }
 

@@ -48,45 +48,58 @@ void Phonebook::addContact(Private *const &newContact) {
     privateContacts.push_back(newContact);
 }
 
+bool Phonebook::isFileEmpty(const char *filename) {
+    std::ifstream file(filename, std::ios::in);
+
+
+    // Read a character, test for end-of-file
+    bool empty = (file.get(), file.eof());
+    return empty;
+}
+
 void Phonebook::loadFromFile() {
-    std::ifstream file("../database.txt", std::ios::in);
+    const char *filename = "../database.txt";
+    std::ifstream file(filename, std::ios::in);
+    if (!file)
+        std::cerr << filename << " failed to open\n";
+    else {
+        int num1, num2; // size of workContacts and privateContacts
+        String number, name, email, company, website, address, nickname;
+        int birthday;
+        file >> num1;
+        if (num1 != 0)
+            for (int i = 0; i < num1; ++i) {
+                file >> number;
+                file.ignore(1, '\n');
+                file >> name;
+                file.ignore(1, '\n');
+                file >> email;
+                file.ignore(1, '\n');
+                file >> company;
+                file.ignore(1, '\n');
+                file >> website;
+                file.ignore(1, '\n');
+                this->addContact(new Work(number, name, email, company, website));
+            }
+        file >> num2;
+        if (num2 != 0)
+            for (int i = 0; i < num2; ++i) {
+                file >> number;
+                file.ignore(1, '\n');
+                file >> name;
+                file.ignore(1, '\n');
+                file >> email;
+                file.ignore(1, '\n');
+                file >> address;
+                file.ignore(1, '\n');
+                file >> nickname;
+                file.ignore(1, '\n');
+                file >> birthday;
+                this->addContact(new Private(number, name, nickname, email, address, birthday));
+            }
 
-    int num1, num2; // size of workContacts and privateContacts
-    String number, name, email, company, website, address, nickname;
-    int birthday;
-
-    file >> num1;
-    if (num1 != 0)
-        for (int i = 0; i < num1; ++i) {
-            file >> number;
-            file.ignore(1, '\n');
-            file >> name;
-            file.ignore(1, '\n');
-            file >> email;
-            file.ignore(1, '\n');
-            file >> company;
-            file.ignore(1, '\n');
-            file >> website;
-            file.ignore(1, '\n');
-            this->addContact(new Work(number, name, email, company, website));
-        }
-    file >> num2;
-    if (num2 != 0)
-        for (int i = 0; i < num2; ++i) {
-            file >> number;
-            file.ignore(1, '\n');
-            file >> name;
-            file.ignore(1, '\n');
-            file >> email;
-            file.ignore(1, '\n');
-            file >> address;
-            file.ignore(1, '\n');
-            file >> nickname;
-            file.ignore(1, '\n');
-            file >> birthday;
-            this->addContact(new Private(number, name, nickname, email, address, birthday));
-        }
-    file.close();
+        file.close();
+    }
 }
 
 void Phonebook::saveContactsToDB(std::ostream &file, Work *work) {
@@ -100,7 +113,8 @@ void Phonebook::saveContactsToDB(std::ostream &file, Private *priv) {
 }
 
 void Phonebook::saveToFile() {
-    std::ofstream file("../database.txt", std::ios::out);
+    const char *filename = "../database.txt";
+    std::ofstream file(filename, std::ios::out);
 
     file << workContacts.getSize() << std::endl;
     for (size_t i = 0; i < workContacts.getSize(); ++i) {
@@ -156,7 +170,7 @@ void Phonebook::removeContact() {
 
 bool equalFromHere(String const &str, String const &pattern) {
     for (size_t i = 0; i < pattern.size(); ++i) {
-        if (tolower(str[i+1]) != tolower(pattern[i]))
+        if (tolower(str[i]) != tolower(pattern[i]))
             return false;
     }
     return true;
@@ -164,7 +178,7 @@ bool equalFromHere(String const &str, String const &pattern) {
 
 bool containsName(const Contact *contact, const String &pattern) {
     for (size_t i = 0; i < contact->getName().size(); ++i) {
-        if (i + pattern.size() < contact->getName().size()) {
+        if (i + pattern.size() <= contact->getName().size()) {
             if (equalFromHere(String(contact->getName().c_str() + i), pattern)) {
                 return true;
             }
@@ -175,7 +189,7 @@ bool containsName(const Contact *contact, const String &pattern) {
 
 bool containsNumber(const Contact *contact, const String &pattern) {
     for (size_t i = 0; i < contact->getNumber().size(); ++i) {
-        if (i + pattern.size() < contact->getNumber().size()) {
+        if (i + pattern.size() <= contact->getNumber().size()) {
             if (equalFromHere(String(contact->getNumber().c_str() + i), pattern)) {
                 return true;
             }

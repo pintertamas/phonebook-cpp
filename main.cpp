@@ -55,7 +55,8 @@ int main() {
     test_1();
 
     Phonebook phonebook;
-    phonebook.loadFromFile();
+    if(!phonebook.isFileEmpty("../database.txt"))
+        phonebook.loadFromFile();
     Menu *menu = new Menu(phonebook);
 
     menu->run();

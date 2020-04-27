@@ -51,6 +51,8 @@ public:
 
     void removeContact();
 
+    static bool isFileEmpty(const char *filename);
+
     void loadFromFile();
 
     static void saveContactsToDB(std::ostream &, Work *);
