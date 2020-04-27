@@ -110,4 +110,12 @@ void test_2() {
             EXPECT_EQ(0, (int) privateContacts.getSize());
         }
     END
+
+    TEST(Phonebook test, isFileEmpty)
+        {
+            const char *filename = "../emptyfile.txt";
+
+            EXPECT_TRUE(pb.isFileEmpty(filename));
+        }
+    END
 }
