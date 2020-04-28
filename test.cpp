@@ -73,6 +73,9 @@ void test_2() {
     Vector<Contact *> testResult;
 
     testResult = pb.searchByName(testString);
+    /**
+     * @brief Teszteli hogy jó nevet talált-e meg a kereső
+     */
     TEST(Phonebook test, searchByName)
         {
             EXPECT_EQ(*priv->getName().c_str(), *testResult[0]->getName().c_str());
@@ -80,6 +83,9 @@ void test_2() {
     END
 
     testResult = pb.searchByNumber(testString);
+    /**
+     * @brief Teszteli, hogy jó számot talált-e meg a kereső
+     */
     TEST(Phonebook test, searchByNumber)
         {
             EXPECT_EQ(*priv->getNumber().c_str(), *testResult[0]->getNumber().c_str());
@@ -90,13 +96,19 @@ void test_2() {
     Vector<Work *> workContacts;
     privateContacts.push_back(priv);
     workContacts.push_back(work);
+    /**
+     * @brief Teszteli, hogy Jól konvertál-e private és work számot kontakttá
+     */
     TEST(Phonebook test, convertToContact)
         {
             EXPECT_EQ(*priv->getName().c_str(), *Phonebook::convertToContact(privateContacts)[0]->getName().c_str());
-            EXPECT_EQ(*priv->getName().c_str(), *Phonebook::convertToContact(workContacts)[0]->getName().c_str());
+            EXPECT_EQ(*work->getName().c_str(), *Phonebook::convertToContact(workContacts)[0]->getName().c_str());
         }
     END
 
+    /**
+     * @brief Teszteli, hogy az eltávolítás előtt 1-e a Vector mérete
+     */
     TEST(Phonebook test, removeContact before deleting)
         {
             EXPECT_EQ(1, (int) privateContacts.getSize());
@@ -105,12 +117,18 @@ void test_2() {
 
     privateContacts.deleteItem(0);
 
+    /**
+     * @brief Teszteli, hogy eltávolítás után 0-e a Vector mérete
+     */
     TEST(Phonebook test, removeContact after deleting)
         {
             EXPECT_EQ(0, (int) privateContacts.getSize());
         }
     END
 
+    /**
+     * @brief Teszteli, hogy az erre a célra létrehozott üres emptyfile.txt üres-e.
+     */
     TEST(Phonebook test, isFileEmpty)
         {
             const char *filename = "../emptyfile.txt";
