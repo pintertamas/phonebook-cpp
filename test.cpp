@@ -16,6 +16,9 @@
 void test_1() {
     String testString = String("test");
 
+    /**
+     * @brief Teszteli, hogy jó adatokkal jön-e létre a Work class a konstruktor hívásakor
+     */
     TEST(Constructor test, fully set Work CTOR)
         {
             Work work(testString, testString, testString, testString, testString);
@@ -27,14 +30,20 @@ void test_1() {
             EXPECT_EQ(*testString.c_str(), *work.getWebsite().c_str());
         }
     END
+    /**
+     * @brief Teszteli, hogy jó adatokkal jön-e létre a Work class részben üres konstruktor hívásakor
+     */
     TEST(Constructor test, empty Work CTOR)
         {
             String unknown = "unknown";
-            Work work(testString, testString, testString, testString);
+            Work work(testString);
 
             EXPECT_EQ(*unknown.c_str(), *work.getWebsite().c_str());
         }
     END
+    /**
+     * @brief Teszteli, hogy jó adatokkal jön-e létre a Private class a konstruktor hívásakor
+     */
     TEST(Constructor test, Private)
         {
             Private priv(testString, testString, testString, testString, testString, 20000101);
@@ -46,10 +55,13 @@ void test_1() {
             EXPECT_EQ(20000101, priv.getBirthday());
         }
     END
+    /**
+     * @brief Teszteli, hogy jó adatokkal jön-e létre a Private class részben üres konstruktor hívásakor
+     */
     TEST(Constructor test, empty Work CTOR)
         {
             String unknown = "unknown";
-            Private priv(testString, testString, testString, testString);
+            Private priv(testString);
 
             EXPECT_EQ(*unknown.c_str(), *priv.getAddress().c_str());
             EXPECT_EQ(18900101, priv.getBirthday());
