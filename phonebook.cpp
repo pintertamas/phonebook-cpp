@@ -57,10 +57,13 @@ bool Phonebook::isFileEmpty(const char *filename) {
 }
 
 void Phonebook::loadFromFile() {
-    const char *filename = "../database.txt";
+    const char *filename = "database.txt";
     std::ifstream file(filename, std::ios::in);
-    if (!file)
+    if (!file) {
         std::cerr << filename << " failed to open\n";
+        loadFromEmpty();
+    }
+
     else {
         int num1, num2; // size of workContacts and privateContacts
         String number, name, email, company, website, address, nickname;
@@ -101,6 +104,10 @@ void Phonebook::loadFromFile() {
     }
 }
 
+void Phonebook::loadFromEmpty() {
+    delete this;
+}
+
 void Phonebook::saveContactsToDB(std::ostream &file, Work *work) {
     file << work->getNumber() << std::endl << work->getName() << std::endl << work->getEmail() << std::endl
          << work->getCompany() << std::endl << work->getWebsite() << std::endl;
@@ -112,7 +119,7 @@ void Phonebook::saveContactsToDB(std::ostream &file, Private *priv) {
 }
 
 void Phonebook::saveToFile() {
-    const char *filename = "../database.txt";
+    const char *filename = "database.txt";
     std::ofstream file(filename, std::ios::out);
 
     file << workContacts.getSize() << std::endl;

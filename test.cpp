@@ -14,13 +14,13 @@
  * és amikor nem adunk meg minden adatot akkor a megfelelő default értéket veszik-e fel
  */
 void test_1() {
-    String testString = String("test");
 
     /**
      * @brief Teszteli, hogy jó adatokkal jön-e létre a Work class a konstruktor hívásakor
      */
     TEST(Constructor test, fully set Work CTOR)
         {
+            String testString = String("test");
             Work work(testString, testString, testString, testString, testString);
 
             EXPECT_EQ(*testString.c_str(), *work.getNumber().c_str());
@@ -35,6 +35,7 @@ void test_1() {
      */
     TEST(Constructor test, empty Work CTOR)
         {
+            String testString = String("test");
             String unknown = "unknown";
             Work work(testString);
 
@@ -46,6 +47,7 @@ void test_1() {
      */
     TEST(Constructor test, Private)
         {
+            String testString = String("test");
             Private priv(testString, testString, testString, testString, testString, 20000101);
 
             EXPECT_EQ(*testString.c_str(), *priv.getNumber().c_str());
@@ -60,14 +62,16 @@ void test_1() {
      */
     TEST(Constructor test, empty Work CTOR)
         {
+            String testString = String("test");
             String unknown = "unknown";
             Private priv(testString);
 
             EXPECT_EQ(*unknown.c_str(), *priv.getAddress().c_str());
             EXPECT_EQ(18900101, priv.getBirthday());
-
         }
     END
+
+
 }
 
 /**
@@ -143,7 +147,7 @@ void test_2() {
      */
     TEST(Phonebook test, isFileEmpty)
         {
-            const char *filename = "../emptyfile.txt";
+            const char *filename = "emptyfile.txt";
 
             EXPECT_TRUE(pb.isFileEmpty(filename));
         }

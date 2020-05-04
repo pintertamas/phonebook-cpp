@@ -120,6 +120,11 @@ public:
     void loadFromFile();
 
     /**
+     * @brief Ha nem talált a loadFromFile adatokat a database.txt-ben, akkor feltölti üres adatokkal a telefonkönyvet
+     */
+     void loadFromEmpty();
+
+    /**
      * @brief Elmenti a database.txt fileba a worn kontaktokat
      */
     static void saveContactsToDB(std::ostream &, Work *);

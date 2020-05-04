@@ -101,4 +101,6 @@ std::istream& operator>>(std::istream& is, String& s0);
 /// @return új String, ami tartalmazza a karaktert és a sztringet egymás után
 inline String operator+(char ch, const String& str) { return String(ch) + str; }
 
+
+
 #endif
