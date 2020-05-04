@@ -14,7 +14,7 @@
  * és amikor nem adunk meg minden adatot akkor a megfelelő default értéket veszik-e fel
  */
 void test_1() {
-    String testString = String("test");
+    std::string testString = std::string("test");
 
     TEST(Constructor test, fully set Work CTOR)
         {
@@ -29,7 +29,7 @@ void test_1() {
     END
     TEST(Constructor test, empty Work CTOR)
         {
-            String unknown = "unknown";
+            std::string unknown = "unknown";
             Work work(testString, testString, testString, testString);
 
             EXPECT_EQ(*unknown.c_str(), *work.getWebsite().c_str());
@@ -48,7 +48,7 @@ void test_1() {
     END
     TEST(Constructor test, empty Work CTOR)
         {
-            String unknown = "unknown";
+            std::string unknown = "unknown";
             Private priv(testString, testString, testString, testString);
 
             EXPECT_EQ(*unknown.c_str(), *priv.getAddress().c_str());
@@ -63,7 +63,7 @@ void test_1() {
  * Leteszteli, hogy a függvények jó adatokkal térnek-e vissza
  */
 void test_2() {
-    String testString = String("test");
+    std::string testString = std::string("test");
 
     Phonebook pb;
     Private *priv = new Private(testString, testString, testString, testString, testString, 20000101);
@@ -113,7 +113,7 @@ void test_2() {
 
     TEST(Phonebook test, isFileEmpty)
         {
-            const char *filename = "../emptyfile.txt";
+            const char *filename = "emptyfile.txt";
 
             EXPECT_TRUE(pb.isFileEmpty(filename));
         }

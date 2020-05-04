@@ -58,13 +58,13 @@ bool Phonebook::isFileEmpty(const char *filename) {
 }
 
 void Phonebook::loadFromFile() {
-    const char *filename = "../database.txt";
+    const char *filename = "database.txt";
     std::ifstream file(filename, std::ios::in);
     if (!file)
         std::cerr << filename << " failed to open\n";
     else {
         int num1, num2; // size of workContacts and privateContacts
-        String number, name, email, company, website, address, nickname;
+        std::string number, name, email, company, website, address, nickname;
         int birthday;
         file >> num1;
         if (num1 != 0)
@@ -113,7 +113,7 @@ void Phonebook::saveContactsToDB(std::ostream &file, Private *priv) {
 }
 
 void Phonebook::saveToFile() {
-    const char *filename = "../database.txt";
+    const char *filename = "database.txt";
     std::ofstream file(filename, std::ios::out);
 
     file << workContacts.getSize() << std::endl;
@@ -141,7 +141,7 @@ void Phonebook::removeContact() {
         if (toascii(choice) == '1' && workContacts.getSize() > 0) {
             listContactType(convertToContact(workContacts), std::cout);
             std::cout << "Choose an item with its index that you want to remove!" << std::endl;
-            String indexChoice;
+            std::string indexChoice;
             std::cin >> indexChoice;
             if (atoi(indexChoice.c_str()) <= (signed int)workContacts.getSize() && atoi(indexChoice.c_str()) != 0) {
                 std::cout << "This contact was successfully deleted:\n";
@@ -153,7 +153,7 @@ void Phonebook::removeContact() {
         if (toascii(choice) == '2' && privateContacts.getSize() > 0) {
             listContactType(convertToContact(privateContacts), std::cout);
             std::cout << "Choose an item with its index that you want to remove!" << std::endl;
-            String indexChoice;
+            std::string indexChoice;
             std::cin >> indexChoice;
             if (atoi(indexChoice.c_str()) <= (signed int)privateContacts.getSize() && atoi(indexChoice.c_str()) != 0) {
                 std::cout << "This contact was successfully deleted:\n";
@@ -165,7 +165,7 @@ void Phonebook::removeContact() {
     }
 }
 
-bool equalFromHere(String const &str, String const &pattern) {
+bool equalFromHere(std::string const &str, std::string const &pattern) {
     for (size_t i = 0; i < pattern.size(); ++i) {
         if (tolower(str[i]) != tolower(pattern[i]))
             return false;
@@ -173,10 +173,10 @@ bool equalFromHere(String const &str, String const &pattern) {
     return true;
 }
 
-bool containsName(const Contact *contact, const String &pattern) {
+bool containsName(const Contact *contact, const std::string &pattern) {
     for (size_t i = 0; i < contact->getName().size(); ++i) {
         if (i + pattern.size() <= contact->getName().size()) {
-            if (equalFromHere(String(contact->getName().c_str() + i), pattern)) {
+            if (equalFromHere(std::string(contact->getName().c_str() + i), pattern)) {
                 return true;
             }
         }
@@ -184,10 +184,10 @@ bool containsName(const Contact *contact, const String &pattern) {
     return false;
 }
 
-bool containsNumber(const Contact *contact, const String &pattern) {
+bool containsNumber(const Contact *contact, const std::string &pattern) {
     for (size_t i = 0; i < contact->getNumber().size(); ++i) {
         if (i + pattern.size() <= contact->getNumber().size()) {
-            if (equalFromHere(String(contact->getNumber().c_str() + i), pattern)) {
+            if (equalFromHere(std::string(contact->getNumber().c_str() + i), pattern)) {
                 return true;
             }
         }
@@ -196,8 +196,8 @@ bool containsNumber(const Contact *contact, const String &pattern) {
 }
 
 Vector<Contact *>
-Phonebook::searchContactsFor(const Vector<Contact *> &contacts, bool (*searchCommand)(const Contact *, const String &),
-                             const String &pattern) {
+Phonebook::searchContactsFor(const Vector<Contact *> &contacts, bool (*searchCommand)(const Contact *, const std::string &),
+                             const std::string &pattern) {
     Vector<Contact *> result;
     for (size_t i = 0; i < contacts.getSize(); ++i) {
         if (searchCommand(contacts[i], pattern)) {
@@ -223,7 +223,7 @@ Vector<Contact *> Phonebook::convertToContact(Vector<Private *> const &priv) {
     return allContacts;
 }
 
-Vector<Contact *> Phonebook::searchByName(String &name) {
+Vector<Contact *> Phonebook::searchByName(std::string &name) {
     Vector<Contact *> allContacts;
     for (size_t i = 0; i < workContacts.getSize(); ++i) {
         allContacts.push_back(workContacts[i]);
@@ -235,7 +235,7 @@ Vector<Contact *> Phonebook::searchByName(String &name) {
     return searchContactsFor(allContacts, containsName, name);
 }
 
-Vector<Contact *> Phonebook::searchByNumber(String &name) {
+Vector<Contact *> Phonebook::searchByNumber(std::string &name) {
     Vector<Contact *> allContacts;
     for (size_t i = 0; i < workContacts.getSize(); ++i) {
         allContacts.push_back(workContacts[i]);

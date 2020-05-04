@@ -4,7 +4,6 @@
 
 #include "phonebook.hpp"
 #include <fstream>
-#include <string>
 #include "memtrace.h"
 
 /**
@@ -63,7 +62,9 @@ void Phonebook::loadFromFile() {
     if (!file) {
         std::cerr << filename << " failed to open\n";
         loadFromEmpty();
-    } else {
+    }
+
+    else {
         int num1, num2; // size of workContacts and privateContacts
         std::string number, name, email, company, website, address, nickname;
         int birthday;
@@ -72,11 +73,14 @@ void Phonebook::loadFromFile() {
             for (int i = 0; i < num1; ++i) {
                 file >> number;
                 file.ignore(1, '\n');
-                getline(file, name);
+                file >> name;
+                file.ignore(1, '\n');
                 file >> email;
                 file.ignore(1, '\n');
-                getline(file, company);
+                file >> company;
+                file.ignore(1, '\n');
                 file >> website;
+                file.ignore(1, '\n');
                 this->addContact(new Work(number, name, email, company, website));
             }
         file >> num2;
@@ -84,20 +88,24 @@ void Phonebook::loadFromFile() {
             for (int i = 0; i < num2; ++i) {
                 file >> number;
                 file.ignore(1, '\n');
-                getline(file, name);
+                file >> name;
+                file.ignore(1, '\n');
                 file >> email;
                 file.ignore(1, '\n');
-                getline(file, address);
-                getline(file, nickname);
+                file >> address;
+                file.ignore(1, '\n');
+                file >> nickname;
+                file.ignore(1, '\n');
                 file >> birthday;
                 this->addContact(new Private(number, name, nickname, email, address, birthday));
             }
+
         file.close();
     }
 }
 
 void Phonebook::loadFromEmpty() {
-    delete this; // ez azért kell, hogy ne rakja tele a telefonkönyvet szeméttel.
+    delete this;
 }
 
 void Phonebook::saveContactsToDB(std::ostream &file, Work *work) {
@@ -141,7 +149,7 @@ void Phonebook::removeContact() {
             std::cout << "Choose an item with its index that you want to remove!" << std::endl;
             std::string indexChoice;
             std::cin >> indexChoice;
-            if (atoi(indexChoice.c_str()) <= (signed int) workContacts.getSize() && atoi(indexChoice.c_str()) != 0) {
+            if (atoi(indexChoice.c_str()) <= (signed int)workContacts.getSize() && atoi(indexChoice.c_str()) != 0) {
                 std::cout << "This contact was successfully deleted:\n";
                 getWorkContacts(atoi(indexChoice.c_str()) - 1)->toString(std::cout) << std::endl;
                 workContacts.deleteItem(atoi(indexChoice.c_str()) - 1);
@@ -153,7 +161,7 @@ void Phonebook::removeContact() {
             std::cout << "Choose an item with its index that you want to remove!" << std::endl;
             std::string indexChoice;
             std::cin >> indexChoice;
-            if (atoi(indexChoice.c_str()) <= (signed int) privateContacts.getSize() && atoi(indexChoice.c_str()) != 0) {
+            if (atoi(indexChoice.c_str()) <= (signed int)privateContacts.getSize() && atoi(indexChoice.c_str()) != 0) {
                 std::cout << "This contact was successfully deleted:\n";
                 getPrivateContacts(atoi(indexChoice.c_str()) - 1)->toString(std::cout) << std::endl;
                 privateContacts.deleteItem(atoi(indexChoice.c_str()) - 1);
@@ -194,8 +202,7 @@ bool containsNumber(const Contact *contact, const std::string &pattern) {
 }
 
 Vector<Contact *>
-Phonebook::searchContactsFor(const Vector<Contact *> &contacts,
-                             bool (*searchCommand)(const Contact *, const std::string &),
+Phonebook::searchContactsFor(const Vector<Contact *> &contacts, bool (*searchCommand)(const Contact *, const std::string &),
                              const std::string &pattern) {
     Vector<Contact *> result;
     for (size_t i = 0; i < contacts.getSize(); ++i) {

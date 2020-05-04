@@ -74,7 +74,7 @@ void Menu::listAll() {
 void Menu::searchByName() {
     std::cout << "*Search for a contact with a name*" << std::endl;
     std::cout << "Type a name!" << std::endl;
-    String name;
+    std::string name;
     std::cin >> name;
     Vector<Contact *> matchedContacts = phonebook.searchByName(name);
     std::cout << "*Results:*" << std::endl;
@@ -86,7 +86,7 @@ void Menu::searchByName() {
 void Menu::searchByNumber() {
     std::cout << "*Search for a contact with a number*" << std::endl;
     std::cout << "Type a number!" << std::endl;
-    String number;
+    std::string number;
     std::cin >> number;
     Vector<Contact *> matchedContacts = phonebook.searchByNumber(number);
     std::cout << "*Results:*" << std::endl;
@@ -109,26 +109,26 @@ void Menu::addContact() {
             break;
         if (choice == '1') {
             std::cout << "*Creating work contact...*" << std::endl;
-            String number, name, company, email, website;
+            std::string number, name, company, email, website;
             std::cout << "number: +36";
-            std::cin >> number;
+            getline(std::cin, number);
 
             while (atoi(number.c_str()) < 200000000 || atoi(number.c_str()) > 709999999) {
                 std::cout << "Wrong format, try again!" << std::endl;
                 std::cout << "The phone number must contain only numbers, and the length should be 9 digits long)"
                           << std::endl;
                 std::cout << "number: +36";
-                std::cin >> number;
+                getline(std::cin, number);
             }
 
             std::cout << "\nname: ";
-            std::cin >> name;
+            getline(std::cin, name);
             std::cout << "\ncompany: ";
-            std::cin >> company;
+            getline(std::cin, company);
             std::cout << "\nemail: ";
-            std::cin >> email;
+            getline(std::cin, email);
             std::cout << "\nwebsite: ";
-            std::cin >> website;
+            getline(std::cin, website);
             std::cout << std::endl;
 
             Work *newWorkContact = new Work(number, name, email, company, website);
@@ -139,36 +139,36 @@ void Menu::addContact() {
 
         if (choice == '2') {
             std::cout << "*Creating private contact...*" << std::endl;
-            String number, name, nickname, birthday, email, address;
+            std::string number, name, nickname, birthday, email, address;
 
             std::cout << "number: +36";
-            std::cin >> number;
+            getline(std::cin, number);
 
             while (atoi(number.c_str()) < 200000000 || atoi(number.c_str()) > 709999999) {
                 std::cout << "Wrong format, try again!" << std::endl;
                 std::cout << "The phone number must contain only numbers, and the length should be 9 digits long)"
                           << std::endl;
                 std::cout << "number: +36";
-                std::cin >> number;
+                getline(std::cin, number);
             }
 
             std::cout << "\nname: ";
-            std::cin >> name;
+            getline(std::cin, name);
             std::cout << "\nnickname: ";
-            std::cin >> nickname;
+            getline(std::cin, nickname);
             std::cout << "\nFormat:YYYYMMDD\nbirthday: ";
-            std::cin >> birthday;
+            getline(std::cin, birthday);
 
             while (atoi(birthday.c_str()) < 18900101 || atoi(birthday.c_str()) > 21000101) {
                 std::cout << "Wrong format, try again!" << std::endl;
                 std::cout << "The birthday must be between 1890.01.01 and 2100.01.01" << std::endl;
-                std::cin >> birthday;
+                getline(std::cin, birthday);
             }
 
             std::cout << "\nemail: ";
-            std::cin >> email;
+            getline(std::cin, email);
             std::cout << "\naddress: ";
-            std::cin >> address;
+            getline(std::cin, address);
             std::cout << std::endl;
 
             Private *newPrivateContact = new Private(number, name, nickname, email, address,
