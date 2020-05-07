@@ -20,7 +20,7 @@ void test_1() {
      */
     TEST(Constructor test, fully set Work CTOR)
         {
-            std::string testString = "test";
+            std::string testString = std::string("test");
             Work work(testString, testString, testString, testString, testString);
 
             EXPECT_EQ(*testString.c_str(), *work.getNumber().c_str());
@@ -112,8 +112,6 @@ void test_2() {
     Vector<Work *> workContacts;
     privateContacts.push_back(priv);
     workContacts.push_back(work);
-    delete work;
-
     /**
      * @brief Teszteli, hogy Jól konvertál-e private és work számot kontakttá
      */
