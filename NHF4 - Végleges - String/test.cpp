@@ -3,10 +3,10 @@
 //
 #include <iostream>
 #include "gtest_lite.h"
+#include "memtrace.h"
 
 #include "menu.hpp"
 #include "test.hpp"
-#include "memtrace.h"
 
 /**
  * @brief test_1 Teszt a konstruktorokhoz
@@ -20,7 +20,7 @@ void test_1() {
      */
     TEST(Constructor test, fully set Work CTOR)
         {
-            std::string testString = "test";
+            std::string testString = std::string("test");
             Work work(testString, testString, testString, testString, testString);
 
             EXPECT_EQ(*testString.c_str(), *work.getNumber().c_str());
@@ -83,6 +83,7 @@ void test_2() {
 
     Phonebook pb;
     Private *priv = new Private(testString, testString, testString, testString, testString, 20000101);
+    Work *work = new Work(testString, testString, testString, testString, testString);
 
     pb.addContact(priv);
     Vector<Contact *> testResult;
@@ -106,24 +107,11 @@ void test_2() {
             EXPECT_EQ(*priv->getNumber().c_str(), *testResult[0]->getNumber().c_str());
         }
     END
-}
-/**
- * @brief test_3 Teszteset a Phonebook függvényeihez
- * Leteszteli, hogy a függvények jó adatokkal térnek-e vissza
- */
-void test_3() {
-    String testString = String("test");
-
-    Phonebook pb;
-    Private *priv = new Private(testString, testString, testString, testString, testString, 20000101);
-    Work *work = new Work(testString, testString, testString, testString, testString); // itt szivárog a new miatt
 
     Vector<Private *> privateContacts;
     Vector<Work *> workContacts;
     privateContacts.push_back(priv);
     workContacts.push_back(work);
-    delete work;
-
     /**
      * @brief Teszteli, hogy Jól konvertál-e private és work számot kontakttá
      */
@@ -144,7 +132,6 @@ void test_3() {
     END
 
     privateContacts.deleteItem(0);
-    workContacts.deleteItem(0);
 
     /**
      * @brief Teszteli, hogy eltávolítás után 0-e a Vector mérete
@@ -152,7 +139,6 @@ void test_3() {
     TEST(Phonebook test, removeContact after deleting)
         {
             EXPECT_EQ(0, (int) privateContacts.getSize());
-            EXPECT_EQ(0, (int) workContacts.getSize());
         }
     END
 

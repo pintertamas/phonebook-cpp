@@ -1,19 +1,19 @@
-#ifndef STRING_H
-#define STRING_H
+#ifndef std::string_H
+#define std::string_H
 /**
- * \file string5.h
+ * \file std::string5.h
  *
- * Ez a fájl tartalmazza a String osztály deklarációját és inline függvényeit.
+ * Ez a fájl tartalmazza a std::string osztály deklarációját és inline függvényeit.
  */
 
 #include <iostream>
 
 /**
- * String osztály.
+ * std::string osztály.
  * A pData-ban vannak a karakterek (a lezáró nullával együtt),
  * len a hossz.A hosszba nem számít bele a lezáró nulla.
  */
-class String {
+class std::string {
     char *pData;    ///< pointer az adatra
     size_t len;     ///< hossz lezáró nulla nélkül
 public:
@@ -23,7 +23,7 @@ public:
 
 
     /// Default konstruktor
-    /// String() :pData(0), len(0) {}
+    /// std::string() :pData(0), len(0) {}
     /// helyett ""-val inicializáljuk a const char*-osban
 
     /// C-sztringet ad vissza
@@ -32,21 +32,21 @@ public:
 
     /// Konstruktor egy char karakterből
     /// @param ch - karakter
-    String(char ch);
+    std::string(char ch);
 
     /// Konstruktor egy nullával lezárt char sorozatból
     /// Ez a deafault is!
     /// @param p - pointer egy C sztringre
-    String(const char *p = "");
+    std::string(const char *p = "");
 
     /// Másoló konstruktor
-    /// @param s1 - String, amiből létrehozzuk az új String-et
-    String(const String& s1);
+    /// @param s1 - std::string, amiből létrehozzuk az új std::string-et
+    std::string(const std::string& s1);
 
     /// Destruktor
-    virtual ~String() { delete[] pData; }
+    virtual ~std::string() { delete[] pData; }
 
-    /// Kiírunk egy Stringet (debug célokra)
+    /// Kiírunk egy std::stringet (debug célokra)
     /// Előtte kiírunk egy tetszőleges szöveget.
     /// @param txt - nullával lezárt szövegre mutató pointer
     void printDbg(const char *txt = "") const {
@@ -55,27 +55,27 @@ public:
     }
 
     /// Értékadó operátor.
-    /// @param rhs_s - jobboldali String
-    /// @return baoldali (módosított) string (referenciája)
-    String& operator=(const String& rhs_s);
+    /// @param rhs_s - jobboldali std::string
+    /// @return baoldali (módosított) std::string (referenciája)
+    std::string& operator=(const std::string& rhs_s);
 
-    /// Két Stringet összefűz
-    /// @param rhs_s - jobboldali String
-    /// @return új String, ami tartalmazza a két stringet egmás után
-    String operator+(const String& rhs_s) const ;
+    /// Két std::stringet összefűz
+    /// @param rhs_s - jobboldali std::string
+    /// @return új std::string, ami tartalmazza a két std::stringet egmás után
+    std::string operator+(const std::string& rhs_s) const ;
 
     /// Sztrinhez karaktert összefűz
     /// @param rhs_c - jobboldali karakter
-    /// @return új String, ami tartalmazza a sztringet és a karaktert egymás után
-    String operator+(char rhs_c) const { return *this + String(rhs_c);}
+    /// @return új std::string, ami tartalmazza a sztringet és a karaktert egymás után
+    std::string operator+(char rhs_c) const { return *this + std::string(rhs_c);}
 
-    /// A string egy megadott indexű elemének REFERENCIÁJÁVAL tér vissza.
+    /// A std::string egy megadott indexű elemének REFERENCIÁJÁVAL tér vissza.
     /// @param idx - charakter indexe
     /// @return karakter (referencia)
     ///         Indexelési hiba esetén const char* kivételt dob.
     char& operator[](unsigned int idx);
 
-    /// A string egy megadott indexű elemének REFERENCIÁJÁVAL tér vissza.
+    /// A std::string egy megadott indexű elemének REFERENCIÁJÁVAL tér vissza.
     /// @param idx - karakter indexe
     /// @return karakter (referencia)
     ///         Indexelési hiba esetén const char* kivételt dob (assert helyett).
@@ -85,20 +85,20 @@ public:
 /// Globális függvények:
 /// kiír az ostream-re
 /// @param os - ostream típusú objektum
-/// @param s0 - String, amit kiírunk
+/// @param s0 - std::string, amit kiírunk
 /// @return os
-std::ostream& operator<<(std::ostream& os, const String& s0);
+std::ostream& operator<<(std::ostream& os, const std::string& s0);
 
-/// Beolvas az istream-ről egy szót egy string-be.
+/// Beolvas az istream-ről egy szót egy std::string-be.
 /// @param is - istream típusú objektum
-/// @param s0 - String, amibe beolvas
+/// @param s0 - std::string, amibe beolvas
 /// @return is
-std::istream& operator>>(std::istream& is, String& s0);
+std::istream& operator>>(std::istream& is, std::string& s0);
 
 /// Karakterhez sztringet fűz
 /// @param ch - karakter
-/// @param str - String
-/// @return új String, ami tartalmazza a karaktert és a sztringet egymás után
-inline String operator+(char ch, const String& str) { return String(ch) + str; }
+/// @param str - std::string
+/// @return új std::string, ami tartalmazza a karaktert és a sztringet egymás után
+inline std::string operator+(char ch, const std::string& str) { return std::string(ch) + str; }
 
 #endif

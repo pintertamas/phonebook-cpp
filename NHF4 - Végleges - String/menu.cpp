@@ -111,30 +111,30 @@ void Menu::addContact() {
             std::cout << "*Creating work contact...*" << std::endl;
             std::string number, name, company, email, website;
             std::cout << "number: +36";
-            getline(std::cin, number);
+            std::cin >> number;
 
             while (atoi(number.c_str()) < 200000000 || atoi(number.c_str()) > 709999999) {
                 std::cout << "Wrong format, try again!" << std::endl;
                 std::cout << "The phone number must contain only numbers, and the length should be 9 digits long)"
                           << std::endl;
                 std::cout << "number: +36";
-                getline(std::cin, number);
+                std::cin >> number;
             }
 
             std::cout << "\nname: ";
-            getline(std::cin, name);
+            std::cin >> name;
             std::cout << "\ncompany: ";
-            getline(std::cin, company);
+            std::cin >> company;
             std::cout << "\nemail: ";
-            getline(std::cin, email);
+            std::cin >> email;
             std::cout << "\nwebsite: ";
-            getline(std::cin, website);
+            std::cin >> website;
             std::cout << std::endl;
 
-            Work *newWorkContact = new Work(number, name, email, company, website); // itt szivárog, ha hozzáadok és törlök egymás után
+            Work *newWorkContact = new Work(number, name, email, company, website);
             newWorkContact->toString(std::cout);
             phonebook.addContact(newWorkContact);
-            //phonebook.saveToFile();
+            phonebook.saveToFile();
         }
 
         if (choice == '2') {
@@ -142,40 +142,40 @@ void Menu::addContact() {
             std::string number, name, nickname, birthday, email, address;
 
             std::cout << "number: +36";
-            getline(std::cin, number);
+            std::cin >> number;
 
             while (atoi(number.c_str()) < 200000000 || atoi(number.c_str()) > 709999999) {
                 std::cout << "Wrong format, try again!" << std::endl;
                 std::cout << "The phone number must contain only numbers, and the length should be 9 digits long)"
                           << std::endl;
                 std::cout << "number: +36";
-                getline(std::cin, number);
+                std::cin >> number;
             }
 
             std::cout << "\nname: ";
-            getline(std::cin, name);
+            std::cin >> name;
             std::cout << "\nnickname: ";
-            getline(std::cin, nickname);
+            std::cin >> nickname;
             std::cout << "\nFormat:YYYYMMDD\nbirthday: ";
-            getline(std::cin, birthday);
+            std::cin >> birthday;
 
             while (atoi(birthday.c_str()) < 18900101 || atoi(birthday.c_str()) > 21000101) {
                 std::cout << "Wrong format, try again!" << std::endl;
                 std::cout << "The birthday must be between 1890.01.01 and 2100.01.01" << std::endl;
-                getline(std::cin, birthday);
+                std::cin >> birthday;
             }
 
             std::cout << "\nemail: ";
-            getline(std::cin, email);
+            std::cin >> email;
             std::cout << "\naddress: ";
-            getline(std::cin, address);
+            std::cin >> address;
             std::cout << std::endl;
 
             Private *newPrivateContact = new Private(number, name, nickname, email, address,
                                                      atoi(birthday.c_str()));
             newPrivateContact->toString(std::cout);
             phonebook.addContact(newPrivateContact);
-            //phonebook.saveToFile();
+            phonebook.saveToFile();
         }
     }
 }

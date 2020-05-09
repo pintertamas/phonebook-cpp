@@ -8,7 +8,6 @@
 #include <iostream>
 
 #include "contact.hpp"
-#include "string5.h"
 
 /**
  * @file phone.hpp
@@ -18,29 +17,30 @@
  * @brief Work class létrehozása
  */
 class Work : public Contact {
-    String company;
-    String website;
+    std::string company;
+    std::string website;
 public:
     /**
      * @brief Work CTOR
      * A megadott adatokkal létrehoz egy work kontaktot
      */
-    explicit Work(const String &number = "unknown", const String &name = "unknown", const String &email = "unknown",
-                  const String &company = "unknown",
-                  const String &website = "unknown") : Contact(number, name, email), company(company),
-                                                       website(website) {}
+    explicit Work(const std::string &number = "unknown", const std::string &name = "unknown",
+                  const std::string &email = "unknown",
+                  const std::string &company = "unknown",
+                  const std::string &website = "unknown") : Contact(number, name, email), company(company),
+                                                            website(website) {}
 
     /**
      * @brief Company getter
      * @return company
      */
-    String getCompany() const { return company; }
+    std::string getCompany() const { return company; }
 
     /**
      * @brief Website getter
      * @return website
      */
-    String getWebsite() const { return website; }
+    std::string getWebsite() const { return website; }
 
     /**
      * @brief Kiírja a megadott kimenetre a work adatait formázva
@@ -55,18 +55,18 @@ public:
  * @brief Private class létrehozása
  */
 class Private : public Contact {
-    String address;
-    String nickname;
+    std::string address;
+    std::string nickname;
     int birthday;
 public:
     /**
      * @brief Private CTOR
      * A megadott paraméterekkel létrehoöz egy private kontaktot
      */
-    explicit Private(const String &number = "unknown", const String &name = "unknown",
-                     const String &nickname = "unknown", const String &email = "unknown",
-                     const String &address = "unknown",
-                     int birthday = 18900101) : Contact(number, name, email), address(address), nickname(nickname),
+    explicit Private(const std::string &number = "unknown", const std::string &name = "unknown",
+                     std::string nickname = "unknown", const std::string &email = "unknown",
+                     std::string address = "unknown",
+                     int birthday = 18900101) : Contact(number, name, email), address(std::move(address)), nickname(std::move(nickname)),
                                                 birthday(birthday) {}
 
     /**
@@ -79,13 +79,13 @@ public:
      * @brief Nickname getter
      * @return nickname
      */
-    String getNickname() const { return nickname; };
+    std::string getNickname() const { return nickname; };
 
     /**
      * @brief Addressg getter
      * @return address
      */
-    String getAddress() const { return address; }
+    std::string getAddress() const { return address; }
 
     /**
     * @brief Kiírja a megadott kimenetre a private adatait formázva

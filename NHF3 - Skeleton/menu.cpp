@@ -74,7 +74,7 @@ void Menu::listAll() {
 void Menu::searchByName() {
     std::cout << "*Search for a contact with a name*" << std::endl;
     std::cout << "Type a name!" << std::endl;
-    String name;
+    std::string name;
     std::cin >> name;
     Vector<Contact *> matchedContacts = phonebook.searchByName(name);
     std::cout << "*Results:*" << std::endl;
@@ -86,7 +86,7 @@ void Menu::searchByName() {
 void Menu::searchByNumber() {
     std::cout << "*Search for a contact with a number*" << std::endl;
     std::cout << "Type a number!" << std::endl;
-    String number;
+    std::string number;
     std::cin >> number;
     Vector<Contact *> matchedContacts = phonebook.searchByNumber(number);
     std::cout << "*Results:*" << std::endl;
@@ -109,7 +109,7 @@ void Menu::addContact() {
             break;
         if (choice == 49) {
             std::cout << "*Creating work contact...*" << std::endl;
-            String number, name, company, email, website;
+            std::string number, name, company, email, website;
             std::cout << "number: +36";
             std::cin >> number;
 
@@ -139,7 +139,7 @@ void Menu::addContact() {
 
         if (choice == 50) {
             std::cout << "*Creating private contact...*" << std::endl;
-            String number, name, nickname, birthday, email, address;
+            std::string number, name, nickname, birthday, email, address;
 
             std::cout << "number: +36";
             std::cin >> number;

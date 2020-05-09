@@ -1,9 +1,9 @@
 #include <iostream>
 #include "gtest_lite.h"
-#include "memtrace.h"
 
 #include "menu.hpp"
 #include "test.hpp"
+#include "memtrace.h"
 
 /**
  * @file mail.cpp
@@ -28,8 +28,11 @@ int main() {
     Phonebook phonebook;
     if (!Phonebook::isFileEmpty("database.txt"))
         phonebook.loadFromFile();
+    else {
+        phonebook.loadFromEmpty();
+    }
     Menu *menu = new Menu(phonebook);
-
     menu->run();
+    delete menu;
     return 0;
 }
