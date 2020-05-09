@@ -5,8 +5,7 @@
 #ifndef MY_AWESOME_PHONEBOOK_CONTACT_HPP
 #define MY_AWESOME_PHONEBOOK_CONTACT_HPP
 
-#include <string>
-#include <utility>
+#include "string5.h"
 
 /**
  * @file contact.hpp
@@ -21,34 +20,34 @@ class Contact {
      * number, name, email
      */
 protected:
-    std::string number;
-    std::string name;
-    std::string email;
+    String number;
+    String name;
+    String email;
 public:
     /**
      * @brief Contact CTOR
      * A megadott értékekkel létrehoz egy Contactot
      */
-    Contact(std::string number, std::string name, std::string email)
-            : number(std::move(number)), name(std::move(name)), email(std::move(email)) {};
+    Contact(const String &number, const String &name, const String &email)
+            : number(number), name(name), email(email) {};
 
     /**
      * @brief Number getter
      * @return number
      */
-    std::string getNumber() const { return number; };
+    String getNumber() const { return number; };
 
     /**
      * @brief Name getter
      * @return name
      */
-    std::string getName() const { return name; };
+    String getName() const { return name; };
 
     /**
      * @brief Email getter
      * @return email
      */
-    std::string getEmail() const { return email; };
+    String getEmail() const { return email; };
 
     /**
      * @brief A toString tiszta virtuális függvénye

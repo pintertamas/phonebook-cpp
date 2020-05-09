@@ -7,6 +7,7 @@
 
 #include "contact.hpp"
 #include "phone.hpp"
+#include "string5.h"
 #include "vector.hpp"
 
 /**
@@ -28,14 +29,14 @@ public:
      * @param name ez alapján a név alapján listáz
      * @return a keresésnek megfelelt kontaktokat
      */
-    Vector<Contact *> searchByName(std::string &name);
+    Vector<Contact *> searchByName(String &name);
 
     /**
      * @brief Kilistázza azokat a kontaktokat amik telefonszámában szerepel a "number" szám
      * @param name ez alapján a név alapján listáz
      * @return a keresésnek megfelelt kontaktokat
      */
-    Vector<Contact *> searchByNumber(std::string &number);
+    Vector<Contact *> searchByNumber(String &number);
 
     /**
      * @brief Konvertál Vector<Work *>-ről Vector<Contact*>-ra
@@ -59,8 +60,8 @@ public:
      * @return Keresésnek megfelelt Vector
      */
     static Vector<Contact *>
-    searchContactsFor(const Vector<Contact *> &contacts, bool (*searchCommand)(const Contact *, const std::string &),
-                      const std::string &pattern);
+    searchContactsFor(const Vector<Contact *> &contacts, bool (*searchCommand)(const Contact *, const String &),
+                      const String &pattern);
 
     /**
      * @brief Visszatér a workContacts egy elemével

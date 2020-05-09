@@ -20,7 +20,7 @@ void test_1() {
      */
     TEST(Constructor test, fully set Work CTOR)
         {
-            std::string testString = "test";
+            String testString = String("test");
             Work work(testString, testString, testString, testString, testString);
 
             EXPECT_EQ(*testString.c_str(), *work.getNumber().c_str());
@@ -35,8 +35,8 @@ void test_1() {
      */
     TEST(Constructor test, empty Work CTOR)
         {
-            std::string testString = std::string("test");
-            std::string unknown = "unknown";
+            String testString = String("test");
+            String unknown = "unknown";
             Work work(testString);
 
             EXPECT_EQ(*unknown.c_str(), *work.getWebsite().c_str());
@@ -47,7 +47,7 @@ void test_1() {
      */
     TEST(Constructor test, Private)
         {
-            std::string testString = std::string("test");
+            String testString = String("test");
             Private priv(testString, testString, testString, testString, testString, 20000101);
 
             EXPECT_EQ(*testString.c_str(), *priv.getNumber().c_str());
@@ -62,8 +62,8 @@ void test_1() {
      */
     TEST(Constructor test, empty Work CTOR)
         {
-            std::string testString = std::string("test");
-            std::string unknown = "unknown";
+            String testString = String("test");
+            String unknown = "unknown";
             Private priv(testString);
 
             EXPECT_EQ(*unknown.c_str(), *priv.getAddress().c_str());
@@ -79,7 +79,7 @@ void test_1() {
  * Leteszteli, hogy a függvények jó adatokkal térnek-e vissza
  */
 void test_2() {
-    std::string testString = std::string("test");
+    String testString = String("test");
 
     Phonebook pb;
     Private *priv = new Private(testString, testString, testString, testString, testString, 20000101);
@@ -122,8 +122,6 @@ void test_3() {
     Vector<Work *> workContacts;
     privateContacts.push_back(priv);
     workContacts.push_back(work);
-    delete work;
-
     /**
      * @brief Teszteli, hogy Jól konvertál-e private és work számot kontakttá
      */
