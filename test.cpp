@@ -3,10 +3,10 @@
 //
 #include <iostream>
 #include "gtest_lite.h"
-#include "memtrace.h"
 
 #include "menu.hpp"
 #include "test.hpp"
+#include "memtrace.h"
 
 /**
  * @brief test_1 Teszt a konstruktorokhoz
@@ -83,7 +83,6 @@ void test_2() {
 
     Phonebook pb;
     Private *priv = new Private(testString, testString, testString, testString, testString, 20000101);
-    Work *work = new Work(testString, testString, testString, testString, testString);
 
     pb.addContact(priv);
     Vector<Contact *> testResult;
@@ -107,6 +106,17 @@ void test_2() {
             EXPECT_EQ(*priv->getNumber().c_str(), *testResult[0]->getNumber().c_str());
         }
     END
+}
+/**
+ * @brief test_3 Teszteset a Phonebook függvényeihez
+ * Leteszteli, hogy a függvények jó adatokkal térnek-e vissza
+ */
+void test_3() {
+    String testString = String("test");
+
+    Phonebook pb;
+    Private *priv = new Private(testString, testString, testString, testString, testString, 20000101);
+    Work *work = new Work(testString, testString, testString, testString, testString); // itt szivárog a new miatt
 
     Vector<Private *> privateContacts;
     Vector<Work *> workContacts;
@@ -132,6 +142,7 @@ void test_2() {
     END
 
     privateContacts.deleteItem(0);
+    workContacts.deleteItem(0);
 
     /**
      * @brief Teszteli, hogy eltávolítás után 0-e a Vector mérete
@@ -139,6 +150,7 @@ void test_2() {
     TEST(Phonebook test, removeContact after deleting)
         {
             EXPECT_EQ(0, (int) privateContacts.getSize());
+            EXPECT_EQ(0, (int) workContacts.getSize());
         }
     END
 

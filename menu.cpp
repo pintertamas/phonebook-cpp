@@ -131,10 +131,10 @@ void Menu::addContact() {
             std::cin >> website;
             std::cout << std::endl;
 
-            Work *newWorkContact = new Work(number, name, email, company, website);
+            Work *newWorkContact = new Work(number, name, email, company, website); // itt szivárog, ha hozzáadok és törlök egymás után
             newWorkContact->toString(std::cout);
             phonebook.addContact(newWorkContact);
-            phonebook.saveToFile();
+            //phonebook.saveToFile();
         }
 
         if (choice == '2') {
@@ -175,7 +175,7 @@ void Menu::addContact() {
                                                      atoi(birthday.c_str()));
             newPrivateContact->toString(std::cout);
             phonebook.addContact(newPrivateContact);
-            phonebook.saveToFile();
+            //phonebook.saveToFile();
         }
     }
 }

@@ -62,9 +62,7 @@ void Phonebook::loadFromFile() {
     if (!file) {
         std::cerr << filename << " failed to open\n";
         loadFromEmpty();
-    }
-
-    else {
+    } else {
         int num1, num2; // size of workContacts and privateContacts
         String number, name, email, company, website, address, nickname;
         int birthday;
@@ -81,6 +79,7 @@ void Phonebook::loadFromFile() {
                 file.ignore(1, '\n');
                 file >> website;
                 file.ignore(1, '\n');
+                // itt szivárog, ha csak törlök a new miatt
                 this->addContact(new Work(number, name, email, company, website));
             }
         file >> num2;
@@ -97,6 +96,7 @@ void Phonebook::loadFromFile() {
                 file >> nickname;
                 file.ignore(1, '\n');
                 file >> birthday;
+                // itt szivárog a new miatt
                 this->addContact(new Private(number, name, nickname, email, address, birthday));
             }
 
@@ -149,11 +149,11 @@ void Phonebook::removeContact() {
             std::cout << "Choose an item with its index that you want to remove!" << std::endl;
             String indexChoice;
             std::cin >> indexChoice;
-            if (atoi(indexChoice.c_str()) <= (signed int)workContacts.getSize() && atoi(indexChoice.c_str()) != 0) {
+            if (atoi(indexChoice.c_str()) <= (signed int) workContacts.getSize() && atoi(indexChoice.c_str()) > 0) {
                 std::cout << "This contact was successfully deleted:\n";
                 getWorkContacts(atoi(indexChoice.c_str()) - 1)->toString(std::cout) << std::endl;
                 workContacts.deleteItem(atoi(indexChoice.c_str()) - 1);
-                this->saveToFile();
+                //this->saveToFile();
             } else std::cout << "Couldn't find contact with this index" << std::endl;
         }
         if (toascii(choice) == '2' && privateContacts.getSize() > 0) {
@@ -161,11 +161,11 @@ void Phonebook::removeContact() {
             std::cout << "Choose an item with its index that you want to remove!" << std::endl;
             String indexChoice;
             std::cin >> indexChoice;
-            if (atoi(indexChoice.c_str()) <= (signed int)privateContacts.getSize() && atoi(indexChoice.c_str()) != 0) {
+            if (atoi(indexChoice.c_str()) <= (signed int) privateContacts.getSize() && atoi(indexChoice.c_str()) > 0) {
                 std::cout << "This contact was successfully deleted:\n";
                 getPrivateContacts(atoi(indexChoice.c_str()) - 1)->toString(std::cout) << std::endl;
                 privateContacts.deleteItem(atoi(indexChoice.c_str()) - 1);
-                this->saveToFile();
+                //this->saveToFile();
             } else std::cout << "Couldn't find contact with this index" << std::endl;
         }
     }

@@ -47,6 +47,8 @@ public:
      * @return work adattagjai formázva
      */
     std::ostream &toString(std::ostream &) override;
+
+    ~Work() override = default;
 };
 
 /**
@@ -90,6 +92,8 @@ public:
     * @return private adattagjai formázva
     */
     std::ostream &toString(std::ostream &) override;
+
+    ~Private() override = default;
 };
 
 #endif //MY_AWESOME_PHONEBOOK_PHONE_HPP

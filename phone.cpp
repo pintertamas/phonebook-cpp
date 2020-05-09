@@ -3,7 +3,6 @@
 //
 
 #include "phone.hpp"
-
 #include "memtrace.h"
 
 /**

@@ -7,5 +7,6 @@
 
 void test_1();
 void test_2();
+void test_3();
 
 #endif //MY_AWESOME_PHONEBOOK_TEST_HPP

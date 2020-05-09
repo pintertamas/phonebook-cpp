@@ -5,12 +5,13 @@
 #ifndef MY_AWESOME_PHONEBOOK_VECTOR_HPP
 #define MY_AWESOME_PHONEBOOK_VECTOR_HPP
 
+#include <cstdlib>
+#include "memtrace.h"
+
 /**
  * @file vector.hpp
  * @brief Vector class
  */
-
-#include <cstdlib>
 
 template<typename T>
 class Vector {
@@ -122,6 +123,7 @@ public:
      */
     void deleteItem(size_t index) {
         swap(index, (size - 1));
+        delete array[size-1];
         size--;
     }
 };

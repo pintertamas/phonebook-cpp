@@ -24,6 +24,7 @@ int main() {
 
     test_1();
     test_2();
+    test_3();
 
     Phonebook phonebook;
     if (!Phonebook::isFileEmpty("database.txt"))
@@ -31,8 +32,8 @@ int main() {
     else {
         phonebook.loadFromEmpty();
     }
-    Menu *menu = new Menu(phonebook);
-    menu->run();
-    delete menu;
+    Menu menu(phonebook);
+    menu.run();
+
     return 0;
 }
