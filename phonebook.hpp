@@ -16,13 +16,12 @@
  */
 
 class Phonebook {
-    Vector<Work *> workContacts;
-    Vector<Private *> privateContacts;
+    Vector<Contact *> contacts;
 public:
     /**
      * @brief Phonebook CTOR
      */
-    Phonebook() : workContacts(0), privateContacts(0) {};
+    Phonebook() : contacts(0) {};
 
     /**
      * @brief Kilistázza azokat a kontaktokat amik nevében szerepel a "name" szó
@@ -39,20 +38,6 @@ public:
     Vector<Contact *> searchByNumber(String &number);
 
     /**
-     * @brief Konvertál Vector<Work *>-ről Vector<Contact*>-ra
-     * @param workContacts ezt a Vectort konvertálja
-     * @return átkonvertált Vector
-     */
-    static Vector<Contact *> convertToContact(Vector<Work *> const &workContacts);
-
-    /**
-     * @brief Konvertál Vector<Private *>-ról Vector<Contact*>-ra
-     * @param privateContacts ezt a Vectort konvertálja
-     * @return átkonvertált Vector
-     */
-    static Vector<Contact *> convertToContact(Vector<Private *> const &privateContacts);
-
-    /**
      * @brief Kereső függvény
      * @param contacts Ebben a Vectorban keres
      * @param searchCommand Ezzel a kereső függvénnyel
@@ -64,21 +49,16 @@ public:
                       const String &pattern);
 
     /**
-     * @brief Visszatér a workContacts egy elemével
-     * @param index Ezzel az elemével tér vissza
-     * @return workContacts[index]
+     * @brief Visszatér a megfelelő típusú kontaktokkal
+     * @param id Ilyen kontakt típusú Vektorral tér vissza
      */
-    Work *getWorkContacts(size_t index) const {
-        return workContacts[index];
-    }
-
-    /**
-     * @brief Visszatér a workContacts egy elemével
-     * @param index Ezzel az elemével tér vissza
-     * @return privateContacts[i]
-     */
-    Private *getPrivateContacts(size_t index) const {
-        return privateContacts[index];
+    Vector<Contact *> getContactsWithId(int id) const {
+        Vector<Contact *> tmp;
+        for (size_t i = 0; i < contacts.getSize(); ++i) {
+            if (contacts[i]->getContactId() == id)
+                tmp.push_back(contacts[i]);
+        }
+        return tmp;
     }
 
     /**
@@ -93,14 +73,9 @@ public:
     void listContacts(std::ostream &);
 
     /**
-     * @brief hozzáad egy work Vectort a telefonkünyvhöz
+     * @brief Hozzáad egy contactot a telefonkönyvhöz
      */
-    void addContact(Work *const &);
-
-    /**
-     * @brief Hozzáad egy private Vectort a telefonkönyvhöz
-     */
-    void addContact(Private *const &);
+    void addContact(Contact *const &);
 
     /**
      * @brief Kitöröl egy kontaktot az indexe alapján (ezt a futása közben kéri be)
@@ -120,21 +95,6 @@ public:
     void loadFromFile();
 
     /**
-     * @brief Ha nem talált a loadFromFile adatokat a database.txt-ben, akkor feltölti üres adatokkal a telefonkönyvet
-     */
-     void loadFromEmpty();
-
-    /**
-     * @brief Elmenti a database.txt fileba a worn kontaktokat
-     */
-    static void saveContactsToDB(std::ostream &, Work *);
-
-    /**
-     * @brief Elmenti a database.txt fileba a private kontaktokat
-     */
-    static void saveContactsToDB(std::ostream &, Private *);
-
-    /**
      * @brief Elmenti az összes kontaktot a database.txt fileba
      */
     void saveToFile();
@@ -144,11 +104,8 @@ public:
      * Kitörli az összes kontaktot a memóriából
      */
     ~Phonebook() {
-        for (size_t i = 0; i < workContacts.getSize(); ++i) {
-            delete workContacts[i];
-        }
-        for (size_t i = 0; i < privateContacts.getSize(); ++i) {
-            delete privateContacts[i];
+        for (size_t i = 0; i < contacts.getSize(); ++i) {
+            delete contacts[i];
         }
     }
 };

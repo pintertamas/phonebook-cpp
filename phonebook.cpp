@@ -19,33 +19,31 @@ void Phonebook::listContactType(const Vector<Contact *> &contacts, std::ostream 
 }
 
 void Phonebook::listContacts(std::ostream &os) {
-    os << "*Work Contacts*" << std::endl;
-    if (workContacts.getSize() != 0) {
-        for (size_t i = 0; i < workContacts.getSize(); ++i) {
-            os << i + 1 << ". ";
-            getWorkContacts(i)->toString(os);
+    int counter = 0;
+    os << "*Work contacts*" << std::endl;
+    for (size_t i = 0; i < contacts.getSize(); ++i) {
+        if (contacts[i]->getContactId() == Work::getId()) {
+            contacts[i]->toString(os);
+            counter++;
         }
-    } else {
+    }
+    if (counter == 0)
         os << "*There are no work contacts*" << std::endl;
-    }
-    os << std::endl;
-    os << "*Private Contacts*" << std::endl;
-    if (privateContacts.getSize() != 0) {
-        for (size_t i = 0; i < privateContacts.getSize(); ++i) {
-            os << i + 1 << ". ";
-            getPrivateContacts(i)->toString(os);
+
+    counter = 0;
+    os << "*Private contacts*" << std::endl;
+    for (size_t i = 0; i < contacts.getSize(); ++i) {
+        if (contacts[i]->getContactId() == Private::getId()) {
+            contacts[i]->toString(os);
+            counter++;
         }
-    } else {
-        os << "*There are no private contacts*" << std::endl;
     }
+    if (counter == 0)
+        os << "*There are no private contacts*" << std::endl;
 }
 
-void Phonebook::addContact(Work *const &newContact) {
-    workContacts.push_back(newContact);
-}
-
-void Phonebook::addContact(Private *const &newContact) {
-    privateContacts.push_back(newContact);
+void Phonebook::addContact(Contact *const &newContact) {
+    contacts.push_back(newContact);
 }
 
 bool Phonebook::isFileEmpty(const char *filename) {
@@ -61,112 +59,51 @@ void Phonebook::loadFromFile() {
     std::ifstream file(filename, std::ios::in);
     if (!file) {
         std::cerr << filename << " failed to open\n";
-        loadFromEmpty();
     } else {
-        int num1, num2; // size of workContacts and privateContacts
-        String number, name, email, company, website, address, nickname;
-        int birthday;
-        file >> num1;
-        if (num1 != 0)
-            for (int i = 0; i < num1; ++i) {
-                file >> number;
-                file.ignore(1, '\n');
-                file >> name;
-                file.ignore(1, '\n');
-                file >> email;
-                file.ignore(1, '\n');
-                file >> company;
-                file.ignore(1, '\n');
-                file >> website;
-                file.ignore(1, '\n');
-                // itt szivárog, ha csak törlök a new miatt
-                this->addContact(new Work(number, name, email, company, website));
+        int id;
+        while (file >> id) {
+            Contact *contact;
+            if (id == Work::getId()) {
+                contact = new Work();
+                contact->readFromFile(file);
+                this->addContact(contact);
+            } else if (id == Private::getId()) {
+                contact = new Private();
+                contact->readFromFile(file);
+                this->addContact(contact);
             }
-        file >> num2;
-        if (num2 != 0)
-            for (int i = 0; i < num2; ++i) {
-                file >> number;
-                file.ignore(1, '\n');
-                file >> name;
-                file.ignore(1, '\n');
-                file >> email;
-                file.ignore(1, '\n');
-                file >> address;
-                file.ignore(1, '\n');
-                file >> nickname;
-                file.ignore(1, '\n');
-                file >> birthday;
-                // itt szivárog a new miatt
-                this->addContact(new Private(number, name, nickname, email, address, birthday));
-            }
-
+        }
         file.close();
     }
-}
-
-void Phonebook::loadFromEmpty() {
-    delete this;
-}
-
-void Phonebook::saveContactsToDB(std::ostream &file, Work *work) {
-    file << work->getNumber() << std::endl << work->getName() << std::endl << work->getEmail() << std::endl
-         << work->getCompany() << std::endl << work->getWebsite() << std::endl;
-}
-
-void Phonebook::saveContactsToDB(std::ostream &file, Private *priv) {
-    file << priv->getNumber() << std::endl << priv->getName() << std::endl << priv->getNickname() << std::endl
-         << priv->getAddress() << std::endl << priv->getEmail() << std::endl << priv->getBirthday() << std::endl;
 }
 
 void Phonebook::saveToFile() {
     const char *filename = "database.txt";
     std::ofstream file(filename, std::ios::out);
 
-    file << workContacts.getSize() << std::endl;
-    for (size_t i = 0; i < workContacts.getSize(); ++i) {
-        saveContactsToDB(file, workContacts[i]);
-    }
-    file << privateContacts.getSize() << std::endl;
-    for (size_t i = 0; i < privateContacts.getSize(); ++i) {
-        saveContactsToDB(file, privateContacts[i]);
+    for (size_t i = 0; i < contacts.getSize(); ++i) {
+        file << contacts[i]->getContactId() << std::endl;
+        contacts[i]->writeToFile(file);
     }
     file.close();
 }
 
 void Phonebook::removeContact() {
     std::cout << "*Remove contact*" << std::endl;
-    std::cout << "Do you want to remove a work contact or a private contact?" << std::endl;
-    std::cout << "1. Work\n2. Private\n3. EXIT" << std::endl;
-    char choice = 0;
-    while (toascii(choice) < '1' || toascii(choice) > '3') {
-        std::cin >> choice;
-        if (toascii(choice) < '1' || toascii(choice) > '3')
-            std::cout << "Choose again!" << std::endl;
-        if (toascii(choice) == '3')
-            break;
-        if (toascii(choice) == '1' && workContacts.getSize() > 0) {
-            listContactType(convertToContact(workContacts), std::cout);
-            std::cout << "Choose an item with its index that you want to remove!" << std::endl;
-            String indexChoice;
-            std::cin >> indexChoice;
-            if (atoi(indexChoice.c_str()) <= (signed int) workContacts.getSize() && atoi(indexChoice.c_str()) > 0) {
-                std::cout << "This contact was successfully deleted:\n";
-                getWorkContacts(atoi(indexChoice.c_str()) - 1)->toString(std::cout) << std::endl;
-                workContacts.deleteItem(atoi(indexChoice.c_str()) - 1);
-                //this->saveToFile();
-            } else std::cout << "Couldn't find contact with this index" << std::endl;
+    if (contacts.getSize() <= 0) {
+        std::cout << "There are no contacts! Add contacts before you want to delete them!" << std::endl;
+    } else {
+        for (size_t i = 0; i < contacts.getSize(); ++i) {
+            std::cout << i + 1 << ": ";
+            contacts[i]->toString(std::cout);
         }
-        if (toascii(choice) == '2' && privateContacts.getSize() > 0) {
-            listContactType(convertToContact(privateContacts), std::cout);
-            std::cout << "Choose an item with its index that you want to remove!" << std::endl;
-            String indexChoice;
-            std::cin >> indexChoice;
-            if (atoi(indexChoice.c_str()) <= (signed int) privateContacts.getSize() && atoi(indexChoice.c_str()) > 0) {
-                std::cout << "This contact was successfully deleted:\n";
-                getPrivateContacts(atoi(indexChoice.c_str()) - 1)->toString(std::cout) << std::endl;
-                privateContacts.deleteItem(atoi(indexChoice.c_str()) - 1);
-                //this->saveToFile();
-            } else std::cout << "Couldn't find contact with this index" << std::endl;
+        std::cout << "Choose a contact that you want to remove by its ID!" << std::endl;
+        int choice = 0;
+        std::cin >> choice;
+        if (contacts.getSize() < (unsigned) choice || choice <= 0) {
+            std::cout << "There are no contacts matching this ID" << std::endl;
+        } else {
+            contacts.deleteItem(choice - 1);
         }
     }
 }
@@ -213,42 +150,18 @@ Phonebook::searchContactsFor(const Vector<Contact *> &contacts, bool (*searchCom
     return result;
 }
 
-Vector<Contact *> Phonebook::convertToContact(Vector<Work *> const &work) {
-    Vector<Contact *> allContacts;
-    for (size_t i = 0; i < work.getSize(); ++i) {
-        allContacts.push_back(work[i]);
-    }
-    return allContacts;
-}
-
-Vector<Contact *> Phonebook::convertToContact(Vector<Private *> const &priv) {
-    Vector<Contact *> allContacts;
-    for (size_t i = 0; i < priv.getSize(); ++i) {
-        allContacts.push_back(priv[i]);
-    }
-    return allContacts;
-}
-
 Vector<Contact *> Phonebook::searchByName(String &name) {
-    Vector<Contact *> allContacts;
-    for (size_t i = 0; i < workContacts.getSize(); ++i) {
-        allContacts.push_back(workContacts[i]);
+    Vector<Contact *> result;
+    for (size_t i = 0; i < contacts.getSize(); ++i) {
+        result.push_back(contacts[i]);
     }
-    for (size_t i = 0; i < privateContacts.getSize(); ++i) {
-        allContacts.push_back(privateContacts[i]);
-    }
-
-    return searchContactsFor(allContacts, containsName, name);
+    return searchContactsFor(result, containsName, name);
 }
 
-Vector<Contact *> Phonebook::searchByNumber(String &name) {
-    Vector<Contact *> allContacts;
-    for (size_t i = 0; i < workContacts.getSize(); ++i) {
-        allContacts.push_back(workContacts[i]);
+Vector<Contact *> Phonebook::searchByNumber(String &number) {
+    Vector<Contact *> result;
+    for (size_t i = 0; i < contacts.getSize(); ++i) {
+        result.push_back(contacts[i]);
     }
-    for (size_t i = 0; i < privateContacts.getSize(); ++i) {
-        allContacts.push_back(privateContacts[i]);
-    }
-
-    return searchContactsFor(allContacts, containsNumber, name);
+    return searchContactsFor(result, containsNumber, number);
 }

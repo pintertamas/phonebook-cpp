@@ -82,7 +82,7 @@ void test_2() {
     String testString = String("test");
 
     Phonebook pb;
-    Private *priv = new Private(testString, testString, testString, testString, testString, 20000101);
+    Contact *priv = new Private(testString, testString, testString, testString, testString, 20000101);
 
     pb.addContact(priv);
     Vector<Contact *> testResult;
@@ -115,42 +115,31 @@ void test_3() {
     String testString = String("test");
 
     Phonebook pb;
-    Private *priv = new Private(testString, testString, testString, testString, testString, 20000101);
-    Work *work = new Work(testString, testString, testString, testString, testString); // itt szivárog a new miatt
+    Contact *priv = new Private(testString, testString, testString, testString, testString, 20000101);
+    Contact *work = new Work(testString, testString, testString, testString, testString);
 
-    Vector<Private *> privateContacts;
-    Vector<Work *> workContacts;
-    privateContacts.push_back(priv);
-    workContacts.push_back(work);
-    /**
-     * @brief Teszteli, hogy Jól konvertál-e private és work számot kontakttá
-     */
-    TEST(Phonebook test, convertToContact)
-        {
-            EXPECT_EQ(*priv->getName().c_str(), *Phonebook::convertToContact(privateContacts)[0]->getName().c_str());
-            EXPECT_EQ(*work->getName().c_str(), *Phonebook::convertToContact(workContacts)[0]->getName().c_str());
-        }
-    END
+    Vector<Contact *> contacts;
+    contacts.push_back(priv);
+    contacts.push_back(work);
 
     /**
-     * @brief Teszteli, hogy az eltávolítás előtt 1-e a Vector mérete
+     * @brief Teszteli, hogy az eltávolítás előtt 2-e a Vector mérete
      */
     TEST(Phonebook test, removeContact before deleting)
         {
-            EXPECT_EQ(1, (int) privateContacts.getSize());
+            EXPECT_EQ(2, (int) contacts.getSize());
         }
     END
 
-    privateContacts.deleteItem(0);
-    workContacts.deleteItem(0);
+    contacts.deleteItem(0);
+    contacts.deleteItem(0);
 
     /**
      * @brief Teszteli, hogy eltávolítás után 0-e a Vector mérete
      */
     TEST(Phonebook test, removeContact after deleting)
         {
-            EXPECT_EQ(0, (int) privateContacts.getSize());
-            EXPECT_EQ(0, (int) workContacts.getSize());
+            EXPECT_EQ(0, (int) contacts.getSize());
         }
     END
 

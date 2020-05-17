@@ -131,7 +131,7 @@ void Menu::addContact() {
             std::cin >> website;
             std::cout << std::endl;
 
-            Work *newWorkContact = new Work(number, name, email, company, website); // itt szivárog, ha hozzáadok és törlök egymás után
+            Work *newWorkContact = new Work(number, name, email, company, website);
             newWorkContact->toString(std::cout);
             phonebook.addContact(newWorkContact);
             //phonebook.saveToFile();

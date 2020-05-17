@@ -27,26 +27,44 @@ public:
      */
     explicit Work(const String &number = "unknown", const String &name = "unknown", const String &email = "unknown",
                   const String &company = "unknown",
-                  const String &website = "unknown") : Contact(number, name, email), company(company),
+                  const String &website = "unknown") : Contact(getId(), number, name, email), company(company),
                                                        website(website) {}
+
+    /**
+     * @brief id getter
+     * @return id
+     */
+    static int getId() { return 1; }
 
     /**
      * @brief Company getter
      * @return company
      */
-    String getCompany() const { return company; }
+    String const &getCompany() const { return company; }
 
     /**
      * @brief Website getter
      * @return website
      */
-    String getWebsite() const { return website; }
+    String const &getWebsite() const { return website; }
 
     /**
      * @brief Kiírja a megadott kimenetre a work adatait formázva
      * @return work adattagjai formázva
      */
     std::ostream &toString(std::ostream &) override;
+
+    /**
+    * @brief Kiírja a megadott kimenetre a work adatait formázatlanul
+    * @return work adattagjai formázatlanul
+    */
+    void writeToFile(std::ostream &) override;
+
+    /**
+     * @brief Beolvas a megadott kimenetről
+     * @return
+     */
+    void readFromFile(std::ifstream &) override;
 
     ~Work() override = default;
 };
@@ -66,32 +84,52 @@ public:
     explicit Private(const String &number = "unknown", const String &name = "unknown",
                      const String &nickname = "unknown", const String &email = "unknown",
                      const String &address = "unknown",
-                     int birthday = 18900101) : Contact(number, name, email), address(address), nickname(nickname),
+                     int birthday = 18900101) : Contact(getId(), number, name, email), address(address),
+                                                nickname(nickname),
                                                 birthday(birthday) {}
+
+
+    /**
+     * @brief id getter
+     * @return id
+     */
+    static int getId() { return 2; }
 
     /**
      * @brief Birthday getter
      * @return birthday
      */
-    int getBirthday() const { return birthday; }
+    int const &getBirthday() const { return birthday; }
 
     /**
      * @brief Nickname getter
      * @return nickname
      */
-    String getNickname() const { return nickname; };
+    String const &getNickname() const { return nickname; };
 
     /**
      * @brief Addressg getter
      * @return address
      */
-    String getAddress() const { return address; }
+    String const &getAddress() const { return address; }
 
     /**
     * @brief Kiírja a megadott kimenetre a private adatait formázva
     * @return private adattagjai formázva
     */
     std::ostream &toString(std::ostream &) override;
+
+    /**
+    * @brief Kiírja a megadott kimenetre a private adatait formázatlanul
+    * @return private adattagjai formázatlanul
+    */
+    void writeToFile(std::ostream &) override;
+
+    /**
+     * @brief Beolvas a megadott kimenetről
+     * @return
+     */
+    void readFromFile(std::ifstream &) override;
 
     ~Private() override = default;
 };

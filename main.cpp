@@ -29,9 +29,6 @@ int main() {
     Phonebook phonebook;
     if (!Phonebook::isFileEmpty("database.txt"))
         phonebook.loadFromFile();
-    else {
-        phonebook.loadFromEmpty();
-    }
     Menu menu(phonebook);
     menu.run();
 
